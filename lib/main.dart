@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gemini_chatbot/screens/home_screen.dart';
+import 'package:gemini_chatbot/screens/chat/chat_screen.dart';
+import 'package:gemini_chatbot/screens/home/home_screen.dart';
+import 'package:gemini_chatbot/screens/splash/splash_screen.dart';
+import 'package:gemini_chatbot/theme/dark_theme.dart';
+import 'package:gemini_chatbot/utils/constants.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,11 +15,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      title: 'Gemini Chatbot',
+      debugShowCheckedModeBanner: false,
+      theme: darkTheme,
       home: const HomeScreen(),
     );
   }
