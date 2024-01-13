@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gemini_chatbot/services/api/api.dart';
-import 'package:gemini_chatbot/utils/constants.dart';
+import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:gemini_chatbot/screens/chat/custom_chat_ui.dart';
+import 'package:gemini_chatbot/services/api/text_api.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -10,48 +12,59 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  final TextEditingController _textEditingController = TextEditingController();
-  @override
-  void initState() {
-    super.initState();
-    generatedChatResponse("hello");
+  final List<types.Message> _messages = [];
+  final List<types.User> _typing = [];
+  final _user = const types.User(
+      id: '1',
+      firstName: "User",
+      imageUrl:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToK_-LT9HmxfBNTsC0A8wfvjtfxKh3GjexbQ&usqp=CAU');
+  final _bot = const types.User(
+      id: "2",
+      firstName: 'Gemini Bot',
+      imageUrl:
+          'https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png');
+
+  void _handleSendPressed(types.PartialText message) async {
+    final textMessage = types.TextMessage(
+      author: _user,
+      id: randomString(),
+      text: message.text,
+    );
+    setState(() {
+      _messages.insert(0, textMessage);
+      _typing.add(_bot);
+    });
+
+    var response = await generatedChatResponse(message.text);
+
+    final chatMessage = types.TextMessage(
+      author: _bot,
+      id: randomString(),
+      text: response,
+    );
+    setState(() {
+      _typing.remove(_bot);
+      _messages.insert(0, chatMessage);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(title: const Text("ChatScreen")),
-        body: Column(children: [
-          Expanded(
-            child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: 15,
-                itemBuilder: (context, i) {
-                  return ListTile(
-                    leading: const Icon(Icons.computer),
-                    title: Text("hello ${i + 1}"),
-                  );
-                }),
-          ),
-          Container(
-            padding: const EdgeInsets.all(10),
-            child: TextFormField(
-              onTap: () {
-                //print(_textEditingController.text);
-              },
-              controller: _textEditingController,
-              decoration: InputDecoration(
-                  hintText: "Enter your Promt",
-                  suffixIcon: Icon(
-                    Icons.send,
-                    color: kGreenColor,
-                  ),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
-            ),
-          )
-        ]),
+    return Scaffold(
+      appBar: AppBar(title: const Text("ChatScreen")),
+      body: Chat(
+        typingIndicatorOptions: TypingIndicatorOptions(typingUsers: _typing),
+        messages: _messages,
+        onSendPressed: (types.PartialText m) {
+          _handleSendPressed(m);
+        },
+        user: _user,
+        showUserAvatars: true,
+        //showUserNames: true,
+        inputOptions: const InputOptions(
+            sendButtonVisibilityMode: SendButtonVisibilityMode.always),
+        theme: customChatScreenTheme(context),
       ),
     );
   }

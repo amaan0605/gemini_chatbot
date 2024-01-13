@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gemini_chatbot/screens/chat/chat_screen.dart';
+import 'package:gemini_chatbot/screens/chat/image_search_chat_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -62,14 +63,20 @@ class HomeScreen extends StatelessWidget {
                       color: Colors.grey.shade600,
                       borderRadius: BorderRadius.circular(20)),
                   child: const Center(child: Text("voice"))),
-              Container(
-                  margin: const EdgeInsets.all(10),
-                  width: 110,
-                  height: 110,
-                  decoration: BoxDecoration(
-                      color: Colors.grey.shade600,
-                      borderRadius: BorderRadius.circular(20)),
-                  child: const Center(child: Text("Image"))),
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const ImageSearchChatScreen()));
+                },
+                child: Container(
+                    margin: const EdgeInsets.all(10),
+                    width: 110,
+                    height: 110,
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade600,
+                        borderRadius: BorderRadius.circular(20)),
+                    child: const Center(child: Text("Image"))),
+              ),
             ],
           ),
           Padding(
