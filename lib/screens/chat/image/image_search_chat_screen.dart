@@ -1,11 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:gemini_chatbot/screens/chat/custom_chat_ui.dart';
 import 'package:gemini_chatbot/secret/secret_key.dart';
-import 'package:gemini_chatbot/services/api/image_api.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
@@ -18,6 +16,7 @@ class ImageSearchChatScreen extends StatefulWidget {
 
 class _ImageSearchChatScreenState extends State<ImageSearchChatScreen> {
   final List<types.Message> _mes = [];
+  final List<types.User> _typing = [];
   final _user = const types.User(
     id: '1',
     firstName: "User",
@@ -38,7 +37,7 @@ class _ImageSearchChatScreenState extends State<ImageSearchChatScreen> {
     });
   }
 
-  Future<String?> sendApiRequest() async {
+  Future<String?> sendApiRequest(String promt) async {
     if (_imageFile == null) return '';
 
     final bytes = await _imageFile!.readAsBytes();
@@ -52,7 +51,7 @@ class _ImageSearchChatScreenState extends State<ImageSearchChatScreen> {
           "contents": [
             {
               "parts": [
-                {"text": "describe this image"},
+                {"text": promt},
                 {
                   "inlineData": {"mimeType": "image/png", "data": base64Image}
                 }
@@ -101,12 +100,14 @@ class _ImageSearchChatScreenState extends State<ImageSearchChatScreen> {
         author: _user, id: randomString(), text: message.text);
     setState(() {
       _mes.insert(0, textMes);
+      _typing.add(_bot);
     });
-    var response = await sendApiRequest();
+    var response = await sendApiRequest(textMes.text);
 
     final botMessage =
         types.TextMessage(author: _bot, id: randomString(), text: response!);
     setState(() {
+      _typing.remove(_bot);
       _mes.insert(0, botMessage);
     });
   }
@@ -117,6 +118,7 @@ class _ImageSearchChatScreenState extends State<ImageSearchChatScreen> {
       appBar: AppBar(title: const Text("ChatScreen")),
       body: Chat(
         messages: _mes,
+        typingIndicatorOptions: TypingIndicatorOptions(typingUsers: _typing),
         onSendPressed: _onSendPressed,
         user: _user,
         onAttachmentPressed: _handleImageSelection,

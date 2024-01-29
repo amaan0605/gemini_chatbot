@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gemini_chatbot/screens/chat/chat_screen.dart';
+import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
 import 'package:gemini_chatbot/screens/home/home_screen.dart';
 import 'package:gemini_chatbot/screens/splash/splash_screen.dart';
 import 'package:gemini_chatbot/theme/dark_theme.dart';
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Gemini Chatbot',
+      title: 'BotBuddy',
       debugShowCheckedModeBanner: false,
       theme: darkTheme,
       home: const HomeScreen(),

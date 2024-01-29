@@ -40,6 +40,7 @@ dependencies:
   flutter_chat_ui: ^1.6.10
   flutter_chat_types: ^3.6.2
   image_picker: ^1.0.7
+  speech_to_text: ^6.5.1
 
 dev_dependencies:
   flutter_test:

@@ -1,14 +1,12 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:gemini_chatbot/secret/secret_key.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 
-String _convertIntoBase64(File file) {
-  List<int> imageBytes = file.readAsBytesSync();
-  String base64File = base64Encode(imageBytes);
-  return base64File;
-}
+// String _convertIntoBase64(File file) {
+//   List<int> imageBytes = file.readAsBytesSync();
+//   String base64File = base64Encode(imageBytes);
+//   return base64File;
+// }
 
 Future<void> generateImageResponse(
     {required String promt, required String imageData}) async {
