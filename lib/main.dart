@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
+import 'package:gemini_chatbot/screens/home/home_new.dart';
 import 'package:gemini_chatbot/screens/home/home_screen.dart';
 import 'package:gemini_chatbot/screens/splash/splash_screen.dart';
+import 'package:gemini_chatbot/secret/secret_key.dart';
 import 'package:gemini_chatbot/theme/dark_theme.dart';
-import 'package:gemini_chatbot/utils/constants.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: 'BotBuddy',
       debugShowCheckedModeBanner: false,
       theme: darkTheme,
-      home: const HomeScreen(),
+      home: const HomeNewScreen(),
     );
   }
 }

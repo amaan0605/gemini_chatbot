@@ -14,7 +14,7 @@ DarkChatTheme customChatScreenTheme(BuildContext context) {
       sentMessageBodyTextStyle:
           const TextStyle(fontFamily: 'Overpass', fontWeight: FontWeight.w700),
       receivedMessageBodyTextStyle:
-          const TextStyle(fontFamily: 'Overpass', fontWeight: FontWeight.w800),
+          const TextStyle(fontFamily: 'IBM', fontWeight: FontWeight.w600),
       inputTextColor: kGreenColor,
       inputTextStyle:
           Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 16));

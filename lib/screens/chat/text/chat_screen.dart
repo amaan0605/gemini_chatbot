@@ -15,10 +15,9 @@ class _ChatScreenState extends State<ChatScreen> {
   final List<types.Message> _messages = [];
   final List<types.User> _typing = [];
   final _user = const types.User(
-      id: '1',
-      firstName: "User",
-      imageUrl:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToK_-LT9HmxfBNTsC0A8wfvjtfxKh3GjexbQ&usqp=CAU');
+    id: '1',
+    firstName: "User",
+  );
   final _bot = const types.User(
       id: "2",
       firstName: 'Gemini Bot',

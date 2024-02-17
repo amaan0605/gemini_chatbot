@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gemini_chatbot/screens/chat/image/image_search_chat_screen.dart';
+import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
 import 'package:gemini_chatbot/screens/chat/voice/voice_search_chat_screen.dart';
+import 'package:gemini_chatbot/utils/bot_varients_grid.dart';
 import 'package:gemini_chatbot/utils/frosted_glass_box.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomeNewScreen extends StatelessWidget {
+  const HomeNewScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +17,8 @@ class HomeScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         extendBodyBehindAppBar: true,
+
+        //APPBAR
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           title: Text(
@@ -25,10 +29,13 @@ class HomeScreen extends StatelessWidget {
           leading: const Icon(Icons.menu),
           actions: const [Icon(Icons.account_circle)],
         ),
+
+        //BODY
         body: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.only(top: 50),
             decoration: const BoxDecoration(
+              //BACKGROUND IMAGE
               image: DecorationImage(
                 image:
                     // NetworkImage(
@@ -45,6 +52,7 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                //TITLE CARD
                 FrostedGlassBox(
                   margin: 20,
                   height: height * 0.18,
@@ -80,8 +88,9 @@ class HomeScreen extends StatelessWidget {
                                 ))
                           ],
                         ),
-                        Image.asset(
-                          'assets/images/robo.png',
+                        Container(
+                          child: Lottie.asset('assets/lottie/robot.json',
+                              height: 150, width: 150, repeat: false),
                         )
                       ],
                     )
@@ -108,12 +117,14 @@ class HomeScreen extends StatelessWidget {
                                   //const ChatScreen()
                                   ));
                         },
-                        child: FrostedGlassBox(
-                          margin: 10,
+                        child: Container(
+                          margin: const EdgeInsets.all(10),
                           height: height * 0.30,
                           width: width * 0.45,
-                          // topOpacity: .10,
-                          // bottomOpacity: 0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: const Color(0xFFc6f432),
+                          ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -126,16 +137,19 @@ class HomeScreen extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    FrostedGlassBox(
-                                        height: 60,
-                                        width: 60,
+                                    CircleAvatar(
+                                        backgroundColor: Colors.black26,
+                                        radius: 25,
                                         child: SvgPicture.asset(
                                           'assets/images/chat_icon.svg',
-                                          color: Colors.white,
-                                          height: 35,
-                                          width: 35,
+                                          color: Colors.black,
+                                          height: 30,
+                                          width: 30,
                                         )),
-                                    const Icon(Icons.arrow_outward_outlined)
+                                    const Icon(
+                                      Icons.arrow_outward_outlined,
+                                      color: Colors.black,
+                                    )
                                   ],
                                 ),
                               ),
@@ -145,6 +159,7 @@ class HomeScreen extends StatelessWidget {
                                 child: Text("Chat\nBOTBUDDY",
                                     style: TextStyle(
                                       fontFamily: 'IBM',
+                                      color: Colors.black,
                                       fontSize: 20,
                                     )),
                               ),
@@ -159,10 +174,13 @@ class HomeScreen extends StatelessWidget {
                                 builder: (context) =>
                                     const VoiceSearchChatScreen()));
                           },
-                          child: FrostedGlassBox(
-                            margin: 10,
+                          child: Container(
+                            margin: const EdgeInsets.all(10),
                             height: 120,
                             width: 180,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: const Color(0xFFc09ff8)),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -176,16 +194,19 @@ class HomeScreen extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      FrostedGlassBox(
-                                          height: 40,
-                                          width: 40,
+                                      CircleAvatar(
+                                          radius: 20,
+                                          backgroundColor: Colors.black26,
                                           child: SvgPicture.asset(
                                             'assets/images/voice_logo.svg',
-                                            color: Colors.white,
+                                            color: Colors.black,
                                             height: 25,
                                             width: 25,
                                           )),
-                                      const Icon(Icons.arrow_outward_outlined)
+                                      const Icon(
+                                        Icons.arrow_outward_outlined,
+                                        color: Colors.black,
+                                      )
                                     ],
                                   ),
                                 ),
@@ -194,9 +215,9 @@ class HomeScreen extends StatelessWidget {
                                   padding: EdgeInsets.fromLTRB(15, 10, 10, 10),
                                   child: Text("Voice\nSearch",
                                       style: TextStyle(
-                                        fontFamily: 'IBM',
-                                        fontSize: 12,
-                                      )),
+                                          fontFamily: 'IBM',
+                                          fontSize: 12,
+                                          color: Colors.black)),
                                 ),
                               ],
                             ),
@@ -208,10 +229,13 @@ class HomeScreen extends StatelessWidget {
                                 builder: (context) =>
                                     const ImageSearchChatScreen()));
                           },
-                          child: FrostedGlassBox(
-                            margin: 10,
+                          child: Container(
+                            margin: const EdgeInsets.all(10),
                             height: 120,
                             width: 180,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: const Color(0xFFfec4dd)),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -225,16 +249,19 @@ class HomeScreen extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      FrostedGlassBox(
-                                          height: 40,
-                                          width: 40,
+                                      CircleAvatar(
+                                          radius: 20,
+                                          backgroundColor: Colors.black26,
                                           child: SvgPicture.asset(
                                             'assets/images/image_logo.svg',
-                                            color: Colors.white,
-                                            height: 25,
-                                            width: 25,
+                                            color: Colors.black,
+                                            height: 20,
+                                            width: 20,
                                           )),
-                                      const Icon(Icons.arrow_outward_outlined)
+                                      const Icon(
+                                        Icons.arrow_outward_outlined,
+                                        color: Colors.black,
+                                      )
                                     ],
                                   ),
                                 ),
@@ -243,9 +270,9 @@ class HomeScreen extends StatelessWidget {
                                   padding: EdgeInsets.fromLTRB(15, 10, 10, 10),
                                   child: Text("Search\nby Image",
                                       style: TextStyle(
-                                        fontFamily: 'IBM',
-                                        fontSize: 12,
-                                      )),
+                                          fontFamily: 'IBM',
+                                          fontSize: 12,
+                                          color: Colors.black)),
                                 ),
                               ],
                             ),
@@ -258,29 +285,61 @@ class HomeScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(15.0, 15, 15, 0),
                   child: Text(
-                    "Popular Prompts",
+                    "BotBuddy Varients",
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
                 ),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                GridView.count(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  primary: false,
+                  padding: const EdgeInsets.all(20),
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  crossAxisCount: 2,
                   children: [
-                    FrostedGlassBox(
-                        margin: 10,
-                        height: 250,
-                        width: 170,
-                        child: Text("Text")),
-                    FrostedGlassBox(
-                        margin: 10,
-                        height: 250,
-                        width: 170,
-                        child: Text("Text")),
+                    BotVarient(
+                      color: Colors.yellow[200],
+                      title: 'Movie Recommend',
+                      subtitle: 'Find best movies around you',
+                      icon: Icons.movie_creation_outlined,
+                    ),
+                    const BotVarient(
+                      color: Colors.tealAccent,
+                      title: 'Email Writer',
+                      subtitle: 'write professional Emails',
+                      icon: Icons.email_outlined,
+                    ),
+                    const BotVarient(
+                      color: Colors.orangeAccent,
+                      title: 'Programming',
+                      subtitle: 'Solve your coding doubts',
+                      icon: Icons.code,
+                    ),
+                    const BotVarient(
+                      color: Colors.greenAccent,
+                      title: 'Book',
+                      subtitle: 'find best books for you',
+                      icon: Icons.book_outlined,
+                    ),
                   ],
                 )
               ],
             ),
           ),
         ),
+        // bottomNavigationBar: BottomNavigationBar(items: const [
+        //   BottomNavigationBarItem(
+        //       label: 'Home',
+        //       icon: Icon(
+        //         Icons.home,
+        //       )),
+        //   BottomNavigationBarItem(
+        //       label: 'Settings',
+        //       icon: Icon(
+        //         Icons.settings,
+        //       )),
+        // ]),
       ),
     );
   }
