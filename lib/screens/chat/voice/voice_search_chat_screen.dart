@@ -1,9 +1,9 @@
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_ui/flutter_chat_ui.dart';
-import 'package:gemini_chatbot/screens/chat/custom_chat_ui.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:gemini_chatbot/main.dart';
 import 'package:gemini_chatbot/services/api/text_api.dart';
 import 'package:speech_to_text/speech_to_text.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:lottie/lottie.dart';
 
 class VoiceSearchChatScreen extends StatefulWidget {
@@ -18,12 +18,6 @@ class _VoiceSearchChatScreenState extends State<VoiceSearchChatScreen> {
   SpeechToText speechToText = SpeechToText();
   bool isAvailable = false;
   bool isListening = false;
-  // final List<types.Message> _messages = [];
-  // final List<types.User> _typing = [];
-  // final _user = const types.User(
-  //   id: '1',
-  //   firstName: "User",
-  // );
   @override
   void initState() {
     super.initState();
@@ -44,13 +38,17 @@ class _VoiceSearchChatScreenState extends State<VoiceSearchChatScreen> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Container(
-          padding: const EdgeInsets.all(10),
+          padding: EdgeInsets.only(bottom: screenSize.height * .09),
           child: GestureDetector(
-            onTap: () {
+            onTapUp: (_) {
+              setState(() {
+                isListening = true;
+              });
               if (isAvailable) {
                 speechToText.listen(onResult: (value) async {
                   setState(() {
                     searchText = value.recognizedWords;
+                    isListening = false;
                   });
                   var responseText = await generatedChatResponse(searchText!);
                   setState(() {
@@ -59,169 +57,50 @@ class _VoiceSearchChatScreenState extends State<VoiceSearchChatScreen> {
                 });
               }
             },
+            onDoubleTapDown: (_) {
+              setState(() {
+                isListening = false;
+              });
+            },
             child: isListening
-                ? Lottie.asset(
-                    'assets/lottie/voice.json',
-                    width: 200,
-                    height: 200,
+                ? AvatarGlow(
+                    child: CircleAvatar(
+                        backgroundColor: Colors.black38,
+                        radius: 40,
+                        child: SvgPicture.asset(
+                          'assets/images/mic_icon.svg',
+                          color: Colors.white,
+                          height: 40,
+                          width: 40,
+                        )),
                   )
-                : const CircleAvatar(
-                    backgroundColor: Colors.black, //Colors.grey.shade900,
+                : CircleAvatar(
+                    backgroundColor: Colors.black38,
                     radius: 40,
-                    child: Icon(
-                      Icons.mic,
-                      color: Color(0xFFC5FFAC),
-                      size: 30,
-                    ),
-                  ),
+                    child: SvgPicture.asset(
+                      'assets/images/mic_icon.svg',
+                      color: Colors.white,
+                      height: 40,
+                      width: 40,
+                    )),
           ),
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-              child: Text(
-                "How can i help you?",
-                style: Theme.of(context).textTheme.headlineMedium,
+        body: Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/images/bg.png"),
+                  fit: BoxFit.cover)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                child: Text(
+                  "How can i help you?",
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
               ),
-            ),
-          ],
-        )
-        //  Chat(
-        //   messages: _messages,
-        //   onSendPressed: (m) {},
-        //   user: _user,
-        //   theme: customChatScreenTheme(context),
-        // ),
-        );
+            ],
+          ),
+        ));
   }
 }
-
-
-// import 'package:flutter/material.dart';
-// import 'package:gemini_chatbot/models/chat_model.dart';
-// import 'package:gemini_chatbot/secret/secret_key.dart';
-// import 'package:http/http.dart' as http;
-// import 'dart:convert';
-
-// // final url = Uri.parse(
-// //     "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=$apiKey");
-// // const apiEndpoint =
-// //     'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
-
-// class GenerateChat extends StatefulWidget {
-//   const GenerateChat({super.key});
-
-//   @override
-//   _GenerateChatState createState() => _GenerateChatState();
-// }
-
-// class _GenerateChatState extends State<GenerateChat> {
-//   final TextEditingController _messageController = TextEditingController();
-//   // List<Map<String, dynamic>>
-//   List chatMessages = [];
-
-//   void sendMessage(String message) async {
-//     setState(() {
-//       chatMessages.add({
-//         "role": "user",
-//         // "text": message,
-//         "parts": [
-//           {"text": message}
-//         ],
-//       });
-//     });
-
-//     var apiUrl =
-//         "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=$apiKey";
-
-//     var requestBody = {
-//       "contents": [
-//         {
-//           "role": "user",
-//           "parts": [
-//             {"text": message}
-//           ],
-//         }
-//       ]
-//     };
-
-//     var response = await http.post(
-//       Uri.parse(apiUrl),
-//       headers: {"Content-Type": "application/json"},
-//       body: jsonEncode(requestBody),
-//     );
-
-//     var responseBody = jsonDecode(response.body);
-//     print(chatMessages);
-//     print(responseBody);
-
-//     setState(() {
-//       chatMessages.add({
-//         "role": "model",
-//         "parts": [
-//           {"text": responseBody["candidates"][0]['content']['parts'][0]['text']}
-//         ],
-//         //"text": responseBody["candidates"][0]['content']['parts'][0]['text']
-//       });
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text("ChatBot App"),
-//       ),
-//       body: Column(
-//         children: [
-//           Expanded(
-//             child: ListView.builder(
-//               itemCount: chatMessages.length,
-//               itemBuilder: (context, index) {
-//                 var message = chatMessages[index];
-//                 return ListTile(
-//                   title: Text(
-//                     message["text"],
-//                     style: TextStyle(
-//                       fontWeight: message["role"] == "user"
-//                           ? FontWeight.normal
-//                           : FontWeight.bold,
-//                     ),
-//                   ),
-//                   tileColor: message["role"] == "user"
-//                       ? Colors.blue[100]
-//                       : Colors.orange[200],
-//                 );
-//               },
-//             ),
-//           ),
-//           Padding(
-//             padding: const EdgeInsets.all(8.0),
-//             child: Row(
-//               children: [
-//                 Expanded(
-//                   child: TextField(
-//                     controller: _messageController,
-//                     decoration: const InputDecoration(
-//                       hintText: "Type a message...",
-//                     ),
-//                   ),
-//                 ),
-//                 IconButton(
-//                   icon: const Icon(Icons.send),
-//                   onPressed: () {
-//                     if (_messageController.text.isNotEmpty) {
-//                       sendMessage(_messageController.text);
-//                       _messageController.clear();
-//                     }
-//                   },
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }

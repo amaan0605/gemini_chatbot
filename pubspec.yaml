@@ -43,6 +43,10 @@ dependencies:
   speech_to_text: ^6.5.1
   lottie: ^2.7.0
   flutter_svg: ^2.0.9
+  flutter_markdown: ^0.6.19
+  google_generative_ai: ^0.2.0
+  avatar_glow: ^3.0.1
+  custom_navigation_bar: ^0.8.2
 
 dev_dependencies:
   flutter_test:
@@ -99,6 +103,14 @@ flutter:
         - asset: assets/fonts/IBMPlexMono-Regular.ttf
         - asset: assets/fonts/IBMPlexMono-Bold.ttf
           weight: 700
+
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Medium.ttf
+        - asset: assets/fonts/Poppins-Light.ttf
+          weight: 200
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 900
           
   #
   # For details regarding fonts from package dependencies,

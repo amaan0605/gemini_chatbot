@@ -1,42 +1,40 @@
+import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
+import 'package:gemini_chatbot/main.dart';
 import 'package:gemini_chatbot/screens/chat/image/image_search_chat_screen.dart';
 import 'package:gemini_chatbot/screens/chat/voice/voice_search_chat_screen.dart';
-import 'package:gemini_chatbot/utils/frosted_glass_box.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gemini_chatbot/screens/settings/setting_page.dart';
+import 'package:gemini_chatbot/screens/varients/bot_varients_page.dart';
+import 'package:gemini_chatbot/utils/widgets/bot_varients_grid.dart';
+import 'package:gemini_chatbot/utils/widgets/custom_search_containers.dart';
+import 'package:gemini_chatbot/utils/widgets/custom_widgets.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
+    screenSize = MediaQuery.of(context).size;
+
     return SafeArea(
       child: Scaffold(
         extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          title: Text(
-            "BotBuddy",
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          centerTitle: true,
-          leading: const Icon(Icons.menu),
-          actions: const [Icon(Icons.account_circle)],
-        ),
+
+        //APPBAR
+        appBar: appBar(),
+        //BODY
         body: SingleChildScrollView(
           child: Container(
-            padding: const EdgeInsets.only(top: 50),
+            padding: EdgeInsets.only(top: screenSize.height * .07),
             decoration: const BoxDecoration(
+              //BACKGROUND IMAGE
               image: DecorationImage(
-                image:
-                    // NetworkImage(
-                    //     "https://assets-global.website-files.com/5a9ee6416e90d20001b20038/64d223cc9b2ceac6ec4bfdc7_%20-%2026.png"),
-                    // fit: BoxFit.cover,
-                    // colorFilter:
-                    //     ColorFilter.mode(Colors.black45, BlendMode.darken)
-                    AssetImage('assets/images/bg.png'),
+                image: AssetImage('assets/images/bg.png'),
                 fit: BoxFit.cover,
               ),
               gradient: LinearGradient(
@@ -45,211 +43,43 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                FrostedGlassBox(
-                  margin: 20,
-                  height: height * 0.18,
-                  width: width,
-                  child:
-                      Stack(alignment: AlignmentDirectional.center, children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.all(15.0),
-                              child: Text(
-                                "Welcome to Tomorrow\nBotBuddy in Action!",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    //fontWeight: FontWeight.w900,
-                                    fontFamily: 'IBM'),
-                              ),
-                            ),
-                            const SizedBox(height: 15),
-                            ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.transparent,
-                                    shadowColor:
-                                        const Color.fromARGB(150, 0, 0, 0)),
-                                child: const Text(
-                                  'Subscribe',
-                                  style: TextStyle(color: Colors.white),
-                                ))
-                          ],
-                        ),
-                        Image.asset(
-                          'assets/images/robo.png',
-                        )
-                      ],
-                    )
-                  ]),
-                ),
-
-                //Search by banners
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15.0, 15, 15, 0),
-                  child: Text(
-                    "Search by",
-                    style: Theme.of(context).textTheme.headlineMedium,
+                //TITLE CARD
+                Container(
+                  padding: const EdgeInsets.only(top: 30, left: 20, bottom: 20),
+                  child: const Text(
+                    'How may I help \nyou today?',
+                    style: TextStyle(fontSize: 30, fontFamily: 'Poppins'),
                   ),
                 ),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const ChatScreen()
-                                  //const ChatScreen()
-                                  ));
-                        },
-                        child: FrostedGlassBox(
-                          margin: 10,
-                          height: height * 0.30,
-                          width: width * 0.45,
-                          // topOpacity: .10,
-                          // bottomOpacity: 0,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(12, 10, 10, 10),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    FrostedGlassBox(
-                                        height: 60,
-                                        width: 60,
-                                        child: SvgPicture.asset(
-                                          'assets/images/chat_icon.svg',
-                                          color: Colors.white,
-                                          height: 35,
-                                          width: 35,
-                                        )),
-                                    const Icon(Icons.arrow_outward_outlined)
-                                  ],
-                                ),
-                              ),
-                              SizedBox(height: height * 0.10),
-                              const Padding(
-                                padding: EdgeInsets.fromLTRB(15, 10, 10, 10),
-                                child: Text("Chat\nBOTBUDDY",
-                                    style: TextStyle(
-                                      fontFamily: 'IBM',
-                                      fontSize: 20,
-                                    )),
-                              ),
-                            ],
-                          ),
-                        )),
+                    LargeSearchContainer(
+                        height: screenSize.height, width: screenSize.width),
                     Column(
                       children: [
-                        InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    const VoiceSearchChatScreen()));
+                        SmallSearchContainer(
+                          title: 'Voice\nSearch',
+                          color: const Color(0xFFc09ff8),
+                          svgImagePath: 'assets/images/voice_logo.svg',
+                          ontap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const VoiceSearchChatScreen()));
                           },
-                          child: FrostedGlassBox(
-                            margin: 10,
-                            height: 120,
-                            width: 180,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(12, 10, 10, 10),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      FrostedGlassBox(
-                                          height: 40,
-                                          width: 40,
-                                          child: SvgPicture.asset(
-                                            'assets/images/voice_logo.svg',
-                                            color: Colors.white,
-                                            height: 25,
-                                            width: 25,
-                                          )),
-                                      const Icon(Icons.arrow_outward_outlined)
-                                    ],
-                                  ),
-                                ),
-                                // SizedBox(height: height * 0.10),
-                                const Padding(
-                                  padding: EdgeInsets.fromLTRB(15, 10, 10, 10),
-                                  child: Text("Voice\nSearch",
-                                      style: TextStyle(
-                                        fontFamily: 'IBM',
-                                        fontSize: 12,
-                                      )),
-                                ),
-                              ],
-                            ),
-                          ),
                         ),
-                        InkWell(
-                          onTap: () {
+                        SmallSearchContainer(
+                          color: const Color(0xFFfec4dd),
+                          svgImagePath: 'assets/images/image_logo.svg',
+                          title: "Search\nby Image",
+                          ontap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) =>
                                     const ImageSearchChatScreen()));
                           },
-                          child: FrostedGlassBox(
-                            margin: 10,
-                            height: 120,
-                            width: 180,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(12, 10, 10, 10),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      FrostedGlassBox(
-                                          height: 40,
-                                          width: 40,
-                                          child: SvgPicture.asset(
-                                            'assets/images/image_logo.svg',
-                                            color: Colors.white,
-                                            height: 25,
-                                            width: 25,
-                                          )),
-                                      const Icon(Icons.arrow_outward_outlined)
-                                    ],
-                                  ),
-                                ),
-                                // SizedBox(height: height * 0.10),
-                                const Padding(
-                                  padding: EdgeInsets.fromLTRB(15, 10, 10, 10),
-                                  child: Text("Search\nby Image",
-                                      style: TextStyle(
-                                        fontFamily: 'IBM',
-                                        fontSize: 12,
-                                      )),
-                                ),
-                              ],
-                            ),
-                          ),
                         ),
                       ],
                     )
@@ -258,25 +88,63 @@ class HomeScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(15.0, 15, 15, 0),
                   child: Text(
-                    "Popular Prompts",
+                    "BotBuddy Varients",
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
                 ),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    FrostedGlassBox(
-                        margin: 10,
-                        height: 250,
-                        width: 170,
-                        child: Text("Text")),
-                    FrostedGlassBox(
-                        margin: 10,
-                        height: 250,
-                        width: 170,
-                        child: Text("Text")),
+                GridView.count(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  primary: false,
+                  padding: const EdgeInsets.all(20),
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  crossAxisCount: 2,
+                  children: const [
+                    BotVarient(
+                      color: Color(0xFF7BD3EA),
+                      title: 'Movie Recommend',
+                      subtitle: 'Find best movies around you',
+                      icon: Icons.movie_creation_outlined,
+                    ),
+                    BotVarient(
+                      color: Color(0xFFDFCCFB),
+                      title: 'Email Writer',
+                      subtitle: 'write professional Emails',
+                      icon: Icons.email_outlined,
+                    ),
+                    BotVarient(
+                      color: Color(0xFFFFBE98),
+                      title: 'Programming',
+                      subtitle: 'Solve your coding doubts',
+                      icon: Icons.code,
+                    ),
+                    BotVarient(
+                      color: Color(0xFFF0DBAF),
+                      title: 'Book',
+                      subtitle: 'find best books for you',
+                      icon: Icons.book_outlined,
+                    ),
                   ],
-                )
+                ),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const BotVarientsPage()));
+                    },
+                    style: ElevatedButton.styleFrom(
+                        minimumSize: Size(
+                            screenSize.width * 0.9, screenSize.height * 0.05),
+                        backgroundColor: Colors.white),
+                    child: const Text('View More',
+                        style: TextStyle(
+                            color: Colors.black, fontFamily: "Poppins")),
+                  ),
+                ),
+                const SizedBox(height: 20)
               ],
             ),
           ),

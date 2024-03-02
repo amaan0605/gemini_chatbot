@@ -7,17 +7,20 @@ class BotVarient extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.icon,
+    this.height,
   });
 
   final Color? color;
   final String title;
   final String subtitle;
   final IconData icon;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(8),
+      height: height,
       decoration: BoxDecoration(
           color: color ?? Colors.teal[400],
           borderRadius: BorderRadius.circular(20)),
@@ -40,8 +43,8 @@ class BotVarient extends StatelessWidget {
         Text(
           subtitle,
           style: const TextStyle(
-            fontFamily: 'Bebas',
-            fontSize: 13,
+            fontFamily: 'Poppins',
+            fontSize: 10,
             color: Colors.black54,
           ),
         )

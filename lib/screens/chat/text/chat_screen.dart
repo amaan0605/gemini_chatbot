@@ -1,8 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_ui/flutter_chat_ui.dart';
-import 'package:gemini_chatbot/screens/chat/custom_chat_ui.dart';
-import 'package:gemini_chatbot/services/api/text_api.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:gemini_chatbot/main.dart';
+import 'package:gemini_chatbot/providers/chat_provider.dart';
+import 'package:gemini_chatbot/secret/secret_key.dart';
+import 'package:gemini_chatbot/utils/widgets/custom_textfield.dart';
+import 'package:gemini_chatbot/utils/widgets/message_widget.dart';
+import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -12,59 +16,168 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  final List<types.Message> _messages = [];
-  final List<types.User> _typing = [];
-  final _user = const types.User(
-    id: '1',
-    firstName: "User",
-  );
-  final _bot = const types.User(
-      id: "2",
-      firstName: 'Gemini Bot',
-      imageUrl:
-          'https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png');
+  late final GenerativeModel _model;
+  late final ChatSession _chat;
+  final ScrollController _scrollController = ScrollController();
+  final TextEditingController _textController = TextEditingController();
+  final FocusNode _textFieldFocus = FocusNode();
+  //final bool _loading = false;
 
-  void _handleSendPressed(types.PartialText message) async {
-    final textMessage = types.TextMessage(
-      author: _user,
-      id: randomString(),
-      text: message.text,
+  @override
+  void initState() {
+    super.initState();
+    _model = GenerativeModel(
+      model: 'gemini-pro',
+      apiKey: apiKey,
     );
-    setState(() {
-      _messages.insert(0, textMessage);
-      _typing.add(_bot);
-    });
+    _chat = _model.startChat(history: [
+      Content.text(
+          "You are BotBuddy, a personal AI Chatbot. Your job is to answer user's questions. You can use a fun tone"),
+      Content.model([
+        TextPart(
+            "Nice to meet you, I'm BotBuddy! Ask me anything and I'll do my best to help!")
+      ])
+    ]);
+  }
 
-    var response = await generatedChatResponse(message.text);
-
-    final chatMessage = types.TextMessage(
-      author: _bot,
-      id: randomString(),
-      text: response,
+  void _scrollDown() {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(
+          milliseconds: 750,
+        ),
+        curve: Curves.easeOutCirc,
+      ),
     );
-    setState(() {
-      _typing.remove(_bot);
-      _messages.insert(0, chatMessage);
-    });
   }
 
   @override
   Widget build(BuildContext context) {
+    // print('build called');
     return Scaffold(
-      appBar: AppBar(title: const Text("ChatScreen")),
-      body: Chat(
-        typingIndicatorOptions: TypingIndicatorOptions(typingUsers: _typing),
-        messages: _messages,
-        onSendPressed: (types.PartialText m) {
-          _handleSendPressed(m);
-        },
-        user: _user,
-        showUserAvatars: true,
-        //showUserNames: true,
-        inputOptions: const InputOptions(
-            sendButtonVisibilityMode: SendButtonVisibilityMode.always),
-        theme: customChatScreenTheme(context),
+      appBar: AppBar(
+        title: const Text('Chat Screen'),
+        centerTitle: true,
+        toolbarHeight: screenSize.height * .08,
       ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+                child: ListView.builder(
+              controller: _scrollController,
+              itemBuilder: (context, idx) {
+                var content = _chat.history.toList()[idx];
+                var text = content.parts
+                    .whereType<TextPart>()
+                    .map<String>((e) => e.text)
+                    .join('');
+                return MessageWidget(
+                  text: text,
+                  isFromUser: content.role == 'user',
+                );
+              },
+              itemCount: _chat.history.length,
+            )),
+            //Provider
+            Consumer<ChatProvider>(
+              builder: (context, providerValue, child) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 25,
+                    horizontal: 5,
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: CustomTextField(
+                          controller: _textController,
+                          onSubmitted: (String value) {
+                            _sendChatMessage(value);
+                          },
+                        ),
+                      ),
+                      const SizedBox.square(
+                        dimension: 15,
+                      ),
+                      if (providerValue.loading)
+                        CircleAvatar(
+                          backgroundColor: Colors.green[900],
+                          radius: 23,
+                          child: IconButton(
+                            onPressed: () async {
+                              _sendChatMessage(_textController.text);
+                            },
+                            icon: const Icon(CupertinoIcons.search,
+                                color: Colors.white),
+                          ),
+                        )
+                      else
+                        const CircularProgressIndicator(),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _sendChatMessage(String message) async {
+    ChatProvider chatProvider =
+        Provider.of<ChatProvider>(context, listen: false);
+    //set loading as true
+    chatProvider.setTrue();
+
+    try {
+      var response = await _chat.sendMessage(
+        Content.text(message),
+      );
+      var text = response.text;
+
+      if (text == null) {
+        _showError('No response from API.');
+        return;
+      } else {
+        chatProvider.setFalse();
+        _scrollDown();
+      }
+    } catch (e) {
+      _showError(e.toString());
+      chatProvider.setFalse();
+    } finally {
+      _textController.clear();
+      chatProvider.setFalse();
+      setState(() {});
+      _textFieldFocus.requestFocus();
+    }
+  }
+
+  void _showError(String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Something went wrong'),
+          content: SingleChildScrollView(
+            child: SelectableText(message),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            )
+          ],
+        );
+      },
     );
   }
 }

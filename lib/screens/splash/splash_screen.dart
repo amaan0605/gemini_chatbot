@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gemini_chatbot/utils/custom_button.dart';
+import 'package:gemini_chatbot/utils/widgets/custom_button.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

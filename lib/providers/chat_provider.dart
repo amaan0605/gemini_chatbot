@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart';
 
 class ChatProvider extends ChangeNotifier {
-  final List<User> _typing = [];
-  final List<Message> _message = [];
+  bool _loading = true;
 
-  void setTyping(List<User> typing) {
-    // _typing.add(typing);
+  bool get loading => _loading;
+
+  void setTrue() {
+    _loading = false;
+    notifyListeners();
+  }
+
+  void setFalse() {
+    _loading = true;
+
     notifyListeners();
   }
 }
