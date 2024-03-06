@@ -1,23 +1,19 @@
 import 'dart:convert';
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
-import 'package:gemini_chatbot/utils/constants.dart';
 
 DarkChatTheme customChatScreenTheme(BuildContext context) {
   return DarkChatTheme(
-      emptyChatPlaceholderTextStyle: TextStyle(
+      backgroundColor: Colors.grey.shade900,
+      inputBackgroundColor: Colors.black,
+      emptyChatPlaceholderTextStyle: const TextStyle(
           fontFamily: 'Overpass',
           fontWeight: FontWeight.w700,
-          color: kGreenColor),
-      sentMessageBodyTextStyle:
-          const TextStyle(fontFamily: 'Overpass', fontWeight: FontWeight.w700),
-      receivedMessageBodyTextStyle:
-          const TextStyle(fontFamily: 'IBM', fontWeight: FontWeight.w600),
-      inputTextColor: kGreenColor,
-      inputTextStyle:
-          Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 16));
+          color: Colors.white),
+      inputTextColor: Colors.white,
+      primaryColor: Colors.black,
+      secondaryColor: Colors.grey.shade800);
 }
 
 String randomString() {

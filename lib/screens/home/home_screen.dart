@@ -1,13 +1,12 @@
-import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:gemini_chatbot/main.dart';
+import 'package:gemini_chatbot/providers/navigator_provider.dart';
 import 'package:gemini_chatbot/screens/chat/image/image_search_chat_screen.dart';
 import 'package:gemini_chatbot/screens/chat/voice/voice_search_chat_screen.dart';
-import 'package:gemini_chatbot/screens/settings/setting_page.dart';
-import 'package:gemini_chatbot/screens/varients/bot_varients_page.dart';
 import 'package:gemini_chatbot/utils/widgets/bot_varients_grid.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_search_containers.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_widgets.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -95,7 +94,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 GridView.count(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
-                  primary: false,
                   padding: const EdgeInsets.all(20),
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
@@ -130,10 +128,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 Center(
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const BotVarientsPage()));
+                      Provider.of<NavigatorProvider>(context, listen: false)
+                          .setIndex(1);
                     },
                     style: ElevatedButton.styleFrom(
                         minimumSize: Size(

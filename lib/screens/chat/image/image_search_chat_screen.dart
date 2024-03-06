@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:gemini_chatbot/main.dart';
 import 'package:gemini_chatbot/screens/chat/custom_chat_ui.dart';
 import 'package:gemini_chatbot/secret/secret_key.dart';
 import 'package:http/http.dart' as http;
@@ -38,7 +39,7 @@ class _ImageSearchChatScreenState extends State<ImageSearchChatScreen> {
   }
 
   Future<String?> sendApiRequest(String promt) async {
-    if (_imageFile == null) return '';
+    if (_imageFile == null) return 'Please Insert a Image';
 
     final bytes = await _imageFile!.readAsBytes();
     final base64Image = base64Encode(bytes);
@@ -115,7 +116,11 @@ class _ImageSearchChatScreenState extends State<ImageSearchChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("ChatScreen")),
+      appBar: AppBar(
+        title: const Text("Image Search"),
+        centerTitle: true,
+        toolbarHeight: screenSize.height * 0.08,
+      ),
       body: Chat(
         messages: _mes,
         typingIndicatorOptions: TypingIndicatorOptions(typingUsers: _typing),

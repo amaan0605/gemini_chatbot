@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gemini_chatbot/main.dart';
 import 'package:gemini_chatbot/services/api/text_api.dart';
 import 'package:speech_to_text/speech_to_text.dart';
-import 'package:lottie/lottie.dart';
 
 class VoiceSearchChatScreen extends StatefulWidget {
   const VoiceSearchChatScreen({super.key});
@@ -35,6 +34,8 @@ class _VoiceSearchChatScreenState extends State<VoiceSearchChatScreen> {
         backgroundColor: Colors.grey.shade900,
         appBar: AppBar(
           title: const Text('Voice Search'),
+          centerTitle: true,
+          toolbarHeight: screenSize.height * .08,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Container(

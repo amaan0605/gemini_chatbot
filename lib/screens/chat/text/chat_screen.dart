@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gemini_chatbot/main.dart';
 import 'package:gemini_chatbot/providers/chat_provider.dart';
 import 'package:gemini_chatbot/secret/secret_key.dart';
@@ -57,7 +57,10 @@ class _ChatScreenState extends State<ChatScreen> {
     // print('build called');
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chat Screen'),
+        title: const Text(
+          'Chat Screen',
+          style: TextStyle(fontFamily: 'Poppins'),
+        ),
         centerTitle: true,
         toolbarHeight: screenSize.height * .08,
       ),
@@ -106,14 +109,16 @@ class _ChatScreenState extends State<ChatScreen> {
                       ),
                       if (providerValue.loading)
                         CircleAvatar(
-                          backgroundColor: Colors.green[900],
+                          backgroundColor: Colors.grey.shade800,
                           radius: 23,
                           child: IconButton(
                             onPressed: () async {
                               _sendChatMessage(_textController.text);
                             },
-                            icon: const Icon(CupertinoIcons.search,
-                                color: Colors.white),
+                            icon: SvgPicture.asset(
+                              'assets/images/send.svg',
+                              color: Colors.white,
+                            ),
                           ),
                         )
                       else

@@ -9,6 +9,6 @@ AppBar appBar() {
         style: TextStyle(fontFamily: 'Poppins', fontSize: 24)),
     centerTitle: true,
     leading: const Icon(Icons.menu),
-    actions: const [Icon(Icons.account_circle)],
+    actions: const [Icon(Icons.account_circle), SizedBox(width: 10)],
   );
 }

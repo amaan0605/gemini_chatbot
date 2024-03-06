@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gemini_chatbot/providers/chat_provider.dart';
+import 'package:gemini_chatbot/providers/navigator_provider.dart';
 // import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
 import 'package:gemini_chatbot/screens/home/home_screen.dart';
 import 'package:gemini_chatbot/screens/navigationBar/navigation_bar.dart';
@@ -21,7 +22,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => ChatProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (context) => ChatProvider()),
+        ChangeNotifierProvider(create: (context) => NavigatorProvider())
+      ],
       child: MaterialApp(
         title: 'BotBuddy',
         debugShowCheckedModeBanner: false,

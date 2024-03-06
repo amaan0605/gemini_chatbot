@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gemini_chatbot/main.dart';
 
 class MessageWidget extends StatelessWidget {
@@ -26,12 +27,16 @@ class MessageWidget extends StatelessWidget {
             children: [
               isFromUser
                   ? Container()
-                  : Image.asset(
-                      'assets/images/ai_logo.png',
-                      height: 50,
-                      width: 50,
+                  : Padding(
+                      padding: const EdgeInsets.only(right: 10.0, bottom: 10),
+                      child: SvgPicture.asset(
+                        'assets/images/Bot.svg',
+                        color: Colors.white,
+                        height: 35,
+                        width: 35,
+                      ),
                     ),
-              const SizedBox(width: 2),
+              // const SizedBox(width: 10),
               Container(
                 constraints: BoxConstraints(maxWidth: screenSize.width * .8),
                 decoration: BoxDecoration(
