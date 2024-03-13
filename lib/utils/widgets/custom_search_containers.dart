@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
+import 'package:page_transition/page_transition.dart';
 
 class SmallSearchContainer extends StatelessWidget {
   const SmallSearchContainer({
@@ -83,8 +84,11 @@ class LargeSearchContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const ChatScreen()));
+          Navigator.push(
+              context,
+              PageTransition(
+                  child: const ChatScreen(),
+                  type: PageTransitionType.rightToLeft));
         },
         child: Container(
           margin: const EdgeInsets.all(10),

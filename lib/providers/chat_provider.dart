@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 class ChatProvider extends ChangeNotifier {
-  bool _loading = true;
+  bool _notLoading = true;
 
-  bool get loading => _loading;
+  bool get notLoading => _notLoading;
 
   void setTrue() {
-    _loading = false;
+    _notLoading = false;
     notifyListeners();
   }
 
   void setFalse() {
-    _loading = true;
+    _notLoading = true;
 
     notifyListeners();
   }

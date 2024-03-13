@@ -8,7 +8,7 @@ class BotVarient extends StatelessWidget {
     required this.subtitle,
     required this.icon,
     this.height,
-    required this.onTap,
+    this.onTap,
   });
 
   final Color? color;

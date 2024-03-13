@@ -34,25 +34,32 @@ class SettingsPage extends StatelessWidget {
               //main settings
               FrostedGlassBox(
                   height: screenSize.height * .2,
-                  child: const Padding(
-                    padding: EdgeInsets.all(18.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(18.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SettingsTitleButton(
-                          text: 'Change Theme',
-                          icon: Icons.precision_manufacturing_outlined,
-                        ),
-                        Divider(color: Colors.white24),
-                        SettingsTitleButton(
+                        const SettingsTitleButton(
                           text: 'Change Username',
                           icon: Icons.person_4_outlined,
                         ),
-                        Divider(color: Colors.white24),
-                        SettingsTitleButton(
+                        const Divider(color: Colors.white24),
+                        const SettingsTitleButton(
                           text: 'Change Password',
                           icon: Icons.password,
+                        ),
+                        const Divider(color: Colors.white24),
+                        SettingsTitleButton(
+                          text: 'Change Theme',
+                          icon: Icons.precision_manufacturing_outlined,
+                          onTap: () {
+                            showMyDialog(
+                                context: context,
+                                title: 'New Themes Alert!',
+                                message:
+                                    'Coming soon! Fresh themes are on the way. Share your ideas and shape the future look of your app. Stay tuned! 🎨');
+                          },
                         ),
                       ],
                     ),

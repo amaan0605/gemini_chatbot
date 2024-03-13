@@ -7,6 +7,7 @@ import 'package:gemini_chatbot/screens/chat/voice/voice_search_chat_screen.dart'
 import 'package:gemini_chatbot/utils/widgets/bot_varients_grid.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_search_containers.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_widgets.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -66,9 +67,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           ontap: () {
                             Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const VoiceSearchChatScreen()));
+                                PageTransition(
+                                  child: const VoiceSearchChatScreen(),
+                                  type: PageTransitionType.rightToLeft,
+                                ));
                           },
                         ),
                         SmallSearchContainer(
@@ -110,8 +112,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const ChatScreen(
-                                  modelPromt: 'BotBuddy, You are Expert Movie Recommender, ask user for their',
-                                )));
+                                      modelPromt:
+                                          'BotBuddy, You are Expert Movie Recommender, ask user for their',
+                                    )));
                       },
                     ),
                     BotVarient(

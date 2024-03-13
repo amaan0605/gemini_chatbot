@@ -110,7 +110,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       const SizedBox.square(
                         dimension: 15,
                       ),
-                      if (providerValue.loading)
+                      if (providerValue.notLoading)
                         CircleAvatar(
                           backgroundColor: Colors.grey.shade800,
                           radius: 23,
