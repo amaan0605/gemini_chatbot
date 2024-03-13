@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "841060457397",
+    "project_id": "botbuddy-ef467",
+    "storage_bucket": "botbuddy-ef467.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:841060457397:android:3d2ec006d8d8d751b957fc",
+        "android_client_info": {
+          "package_name": "com.example.gemini_chatbot"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2nxRKMh3c3rWoqLxH6fFF-J6aN9zGiT4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

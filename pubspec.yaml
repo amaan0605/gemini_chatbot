@@ -47,6 +47,9 @@ dependencies:
   google_generative_ai: ^0.2.0
   avatar_glow: ^3.0.1
   custom_navigation_bar: ^0.8.2
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.16.0
+  page_transition: ^2.1.0
 
 dev_dependencies:
   flutter_test:

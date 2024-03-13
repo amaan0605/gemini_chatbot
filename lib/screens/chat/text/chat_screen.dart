@@ -9,7 +9,10 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key});
+  const ChatScreen({super.key, this.modelPromt, this.modelReply});
+
+  final String? modelPromt;
+  final String? modelReply;
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -31,10 +34,10 @@ class _ChatScreenState extends State<ChatScreen> {
       apiKey: apiKey,
     );
     _chat = _model.startChat(history: [
-      Content.text(
+      Content.text(widget.modelPromt ??
           "You are BotBuddy, a personal AI Chatbot. Your job is to answer user's questions. You can use a fun tone"),
       Content.model([
-        TextPart(
+        TextPart(widget.modelPromt ??
             "Nice to meet you, I'm BotBuddy! Ask me anything and I'll do my best to help!")
       ])
     ]);

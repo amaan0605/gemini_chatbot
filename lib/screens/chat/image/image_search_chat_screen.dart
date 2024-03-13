@@ -22,11 +22,7 @@ class _ImageSearchChatScreenState extends State<ImageSearchChatScreen> {
     id: '1',
     firstName: "User",
   );
-  final _bot = const types.User(
-      id: "2",
-      firstName: 'Gemini Bot',
-      imageUrl:
-          'https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png');
+  final _bot = const types.User(id: "2", firstName: 'Gemini Bot');
 
   XFile? _imageFile;
 //   String? _responseText;
@@ -128,7 +124,7 @@ class _ImageSearchChatScreenState extends State<ImageSearchChatScreen> {
         user: _user,
         onAttachmentPressed: _handleImageSelection,
         theme: customChatScreenTheme(context),
-        showUserAvatars: true,
+        // showUserAvatars: true,
         //showUserNames: true,
         inputOptions: const InputOptions(
             sendButtonVisibilityMode: SendButtonVisibilityMode.always),

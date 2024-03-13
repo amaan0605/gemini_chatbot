@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:gemini_chatbot/main.dart';
+import 'package:gemini_chatbot/screens/auth/login_screen.dart';
+import 'package:gemini_chatbot/screens/auth/signup_screen.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_button.dart';
+import 'package:page_transition/page_transition.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    screenSize = MediaQuery.of(context).size;
     return Scaffold(
       body: SizedBox(
         width: double.infinity,
@@ -21,33 +26,43 @@ class SplashScreen extends StatelessWidget {
               width: 320,
               child: Image.asset("assets/images/ai_logo.png"),
             ),
-            Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Welcome to",
-                      style: Theme.of(context).textTheme.headlineSmall),
-                  Text("FUTURE",
-                      style: Theme.of(context).textTheme.headlineLarge),
-                ],
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Welcome to",
+                    style: Theme.of(context).textTheme.headlineSmall),
+                Text("FUTURE",
+                    style: Theme.of(context).textTheme.headlineLarge),
+              ],
             ),
             Container(
               margin: const EdgeInsets.all(50),
               child: Column(
                 children: [
-                  CustomButton(onPressed: () {}, text: "Signin using email"),
+                  CustomButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                childCurrent: this,
+                                type: PageTransitionType.rightToLeftJoined,
+                                child: const LoginScreen()));
+                      },
+                      text: "Signin using email"),
                   const SizedBox(height: 20),
-                  CustomButton(onPressed: () {}, text: "Signin as a Guest"),
+                  CustomButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                childCurrent: this,
+                                type: PageTransitionType.rightToLeftJoined,
+                                child: const SignUpScreen()));
+                      },
+                      text: "New User? Register Now"),
                 ],
               ),
             ),
-            Container(
-              child: TextButton(
-                onPressed: () {},
-                child: const Text("New User? Register Now"),
-              ),
-            )
           ],
         ),
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gemini_chatbot/main.dart';
 import 'package:gemini_chatbot/providers/navigator_provider.dart';
 import 'package:gemini_chatbot/screens/chat/image/image_search_chat_screen.dart';
+import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
 import 'package:gemini_chatbot/screens/chat/voice/voice_search_chat_screen.dart';
 import 'package:gemini_chatbot/utils/widgets/bot_varients_grid.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_search_containers.dart';
@@ -98,30 +99,56 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
                   crossAxisCount: 2,
-                  children: const [
+                  children: [
                     BotVarient(
-                      color: Color(0xFF7BD3EA),
+                      color: const Color(0xFF7BD3EA),
                       title: 'Movie Recommend',
                       subtitle: 'Find best movies around you',
                       icon: Icons.movie_creation_outlined,
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ChatScreen(
+                                  modelPromt: 'BotBuddy, You are Expert Movie Recommender, ask user for their',
+                                )));
+                      },
                     ),
                     BotVarient(
-                      color: Color(0xFFDFCCFB),
+                      color: const Color(0xFFDFCCFB),
                       title: 'Email Writer',
                       subtitle: 'write professional Emails',
                       icon: Icons.email_outlined,
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ChatScreen()));
+                      },
                     ),
                     BotVarient(
-                      color: Color(0xFFFFBE98),
+                      color: const Color(0xFFFFBE98),
                       title: 'Programming',
                       subtitle: 'Solve your coding doubts',
                       icon: Icons.code,
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ChatScreen()));
+                      },
                     ),
                     BotVarient(
-                      color: Color(0xFFF0DBAF),
+                      color: const Color(0xFFF0DBAF),
                       title: 'Book',
                       subtitle: 'find best books for you',
                       icon: Icons.book_outlined,
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ChatScreen()));
+                      },
                     ),
                   ],
                 ),
