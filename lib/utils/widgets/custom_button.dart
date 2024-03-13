@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gemini_chatbot/utils/constants.dart';
+import 'package:gemini_chatbot/utils/common/constants.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({super.key, required this.onPressed, required this.text});

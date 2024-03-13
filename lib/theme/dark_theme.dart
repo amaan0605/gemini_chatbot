@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gemini_chatbot/utils/constants.dart';
+import 'package:gemini_chatbot/utils/common/constants.dart';
 
 ThemeData darkTheme = ThemeData(
   primaryColor: kGreenColor,

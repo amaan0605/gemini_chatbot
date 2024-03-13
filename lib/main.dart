@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gemini_chatbot/firebase_options.dart';
 import 'package:gemini_chatbot/providers/chat_provider.dart';
 import 'package:gemini_chatbot/providers/navigator_provider.dart';
+import 'package:gemini_chatbot/providers/signup_provider.dart';
 import 'package:gemini_chatbot/screens/auth/login_screen.dart';
 import 'package:gemini_chatbot/screens/auth/signup_screen.dart';
 import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
@@ -32,7 +33,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ChatProvider()),
-        ChangeNotifierProvider(create: (context) => NavigatorProvider())
+        ChangeNotifierProvider(create: (context) => NavigatorProvider()),
+        ChangeNotifierProvider(create: (context) => SignupProvider())
       ],
       child: MaterialApp(
         title: 'BotBuddy',

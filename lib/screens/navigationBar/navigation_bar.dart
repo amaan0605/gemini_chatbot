@@ -4,7 +4,7 @@ import 'package:gemini_chatbot/providers/navigator_provider.dart';
 import 'package:gemini_chatbot/screens/home/home_screen.dart';
 import 'package:gemini_chatbot/screens/settings/setting_page.dart';
 import 'package:gemini_chatbot/screens/varients/bot_varients_page.dart';
-import 'package:gemini_chatbot/utils/constants.dart';
+import 'package:gemini_chatbot/utils/common/constants.dart';
 import 'package:provider/provider.dart';
 
 class BottomNavigationBarScreen extends StatefulWidget {
@@ -28,7 +28,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
       builder: (context, pValue, child) {
         return Scaffold(
           extendBody: true,
-          backgroundColor: Colors.transparent,
+          // backgroundColor: Colors.transparent,
           body: _pages.elementAt(pValue.selectedIndex),
           bottomNavigationBar: Padding(
             padding: const EdgeInsets.only(bottom: 10.0),

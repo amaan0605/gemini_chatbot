@@ -48,7 +48,7 @@ class SplashScreen extends StatelessWidget {
                                 type: PageTransitionType.rightToLeftJoined,
                                 child: const LoginScreen()));
                       },
-                      text: "Signin using email"),
+                      text: "Log into Future"),
                   const SizedBox(height: 20),
                   CustomButton(
                       onPressed: () {
@@ -59,7 +59,7 @@ class SplashScreen extends StatelessWidget {
                                 type: PageTransitionType.rightToLeftJoined,
                                 child: const SignUpScreen()));
                       },
-                      text: "New User? Register Now"),
+                      text: "New User? Join the Future"),
                 ],
               ),
             ),
