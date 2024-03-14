@@ -6,6 +6,7 @@ import 'package:gemini_chatbot/secret/secret_key.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_textfield.dart';
 import 'package:gemini_chatbot/utils/widgets/message_widget.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -89,47 +90,48 @@ class _ChatScreenState extends State<ChatScreen> {
               },
               itemCount: _chat.history.length,
             )),
-            //Provider
-            Consumer<ChatProvider>(
-              builder: (context, providerValue, child) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 25,
-                    horizontal: 5,
-                  ),
-                  child: Row(
+            Provider.of<ChatProvider>(context).notLoading
+                ? Container()
+                : Row(
                     children: [
-                      Expanded(
-                        child: CustomTextField(
-                          controller: _textController,
-                          onSubmitted: (String value) {
-                            _sendChatMessage(value);
-                          },
-                        ),
-                      ),
-                      const SizedBox.square(
-                        dimension: 15,
-                      ),
-                      if (providerValue.notLoading)
-                        CircleAvatar(
-                          backgroundColor: Colors.grey.shade800,
-                          radius: 23,
-                          child: IconButton(
-                            onPressed: () async {
-                              _sendChatMessage(_textController.text);
-                            },
-                            icon: SvgPicture.asset(
-                              'assets/images/send.svg',
-                              color: Colors.white,
-                            ),
-                          ),
-                        )
-                      else
-                        const CircularProgressIndicator(),
+                      Lottie.asset('assets/lottie/Animation .json',
+                          height: 70, width: 70),
+                      const Text('BotBuddy is typing...')
                     ],
                   ),
-                );
-              },
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 25,
+                horizontal: 5,
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: CustomTextField(
+                      controller: _textController,
+                      onSubmitted: (String value) {
+                        _sendChatMessage(value);
+                      },
+                    ),
+                  ),
+                  const SizedBox.square(
+                    dimension: 15,
+                  ),
+                  CircleAvatar(
+                    backgroundColor: Colors.grey.shade800,
+                    radius: 23,
+                    child: IconButton(
+                      onPressed: () async {
+                        _sendChatMessage(_textController.text);
+                      },
+                      icon: SvgPicture.asset(
+                        'assets/images/send.svg',
+                        color: Colors.white,
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ],
         ),

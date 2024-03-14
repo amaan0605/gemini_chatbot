@@ -124,7 +124,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       Provider.of<SignupProvider>(context,
                                               listen: false)
                                           .getUsername(_nameController.text);
-                                      Navigator.push(
+                                      Navigator.pushReplacement(
                                           context,
                                           PageTransition(
                                               childCurrent: widget,

@@ -111,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           password: _passwordController.text)
                                       .then((value) {
                                     if (value!.contains('Success')) {
-                                      Navigator.push(
+                                      Navigator.pushReplacement(
                                           context,
                                           PageTransition(
                                               childCurrent: widget,
