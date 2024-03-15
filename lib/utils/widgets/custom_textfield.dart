@@ -6,12 +6,14 @@ class CustomTextField extends StatelessWidget {
       required this.controller,
       this.onSubmitted,
       this.hintText,
-      this.toHide});
+      this.toHide,
+      this.maxLines});
 
   final TextEditingController controller;
   final Function(String)? onSubmitted;
   final String? hintText;
   final bool? toHide;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,7 @@ class CustomTextField extends StatelessWidget {
         ),
       ),
       child: TextField(
+          maxLines: maxLines ?? 1,
           controller: controller,
           obscureText: toHide ?? false,
           // expands: false,

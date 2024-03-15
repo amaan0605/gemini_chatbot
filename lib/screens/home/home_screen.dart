@@ -4,6 +4,7 @@ import 'package:gemini_chatbot/providers/navigator_provider.dart';
 import 'package:gemini_chatbot/screens/chat/image/image_search_chat_screen.dart';
 import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
 import 'package:gemini_chatbot/screens/chat/voice/voice_search_chat_screen.dart';
+import 'package:gemini_chatbot/screens/varients/preference_page.dart';
 import 'package:gemini_chatbot/utils/widgets/bot_varients_grid.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_search_containers.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_widgets.dart';
@@ -111,10 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const ChatScreen(
-                                      modelPromt:
-                                          'BotBuddy, You are Expert Movie Recommender, ask user for their',
-                                    )));
+                                builder: (context) => const PreferencePage()));
                       },
                     ),
                     BotVarient(
