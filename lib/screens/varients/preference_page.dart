@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gemini_chatbot/main.dart';
 import 'package:gemini_chatbot/providers/chip_provider.dart';
+import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
 import 'package:gemini_chatbot/utils/common/frosted_glass_box.dart';
 import 'package:gemini_chatbot/utils/common/my_chips.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_textfield.dart';
@@ -52,7 +53,7 @@ class _PreferencePageState extends State<PreferencePage> {
 
   @override
   Widget build(BuildContext context) {
-    print(Provider.of<ChipProvider>(context).selectedList);
+    //print(Provider.of<ChipProvider>(context).selectedList);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Movie Recommend'),
@@ -87,50 +88,28 @@ class _PreferencePageState extends State<PreferencePage> {
                   ),
                 ),
                 const SizedBox(height: 30),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'G E N R E',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
-                  ),
+                const PrefHeadingText(
+                  heading: 'G E N R E',
                 ),
                 const Divider(),
                 MyCustomChips(
                   list: movieType,
                 ),
                 const SizedBox(height: 30),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'C O U N T R Y',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
-                  ),
-                ),
+                const PrefHeadingText(heading: 'C O U N T R Y'),
                 const Divider(),
                 MyCustomChips(
                   list: movieCountry,
                 ),
                 const SizedBox(height: 30),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'A C T O R',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
-                  ),
-                ),
+                const PrefHeadingText(heading: 'A C T O R'),
                 const Divider(),
                 CustomTextField(
                   controller: _actorController,
                   hintText: 'Enter any Actor name',
                 ),
                 const SizedBox(height: 30),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'O T H E R   I N F O',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
-                  ),
-                ),
+                const PrefHeadingText(heading: 'O T H E R   I N F O'),
                 const Divider(),
                 CustomTextField(
                   controller: _infoController,
@@ -143,14 +122,47 @@ class _PreferencePageState extends State<PreferencePage> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        isExtended: true,
-        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        icon: const Icon(Icons.search_rounded),
-        label: const Text("Let's gooooooooo"),
-      ),
+      floatingActionButton:
+          Consumer<ChipProvider>(builder: (context, value, child) {
+        return FloatingActionButton.extended(
+          onPressed: () {
+            final selectedList = value.selectedList;
+            // final selectedList =
+            //     Provider.of<ChipProvider>(context, listen: false).selectedList;
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ChatScreen(
+                        // modelPromt:
+                        //     'You are a film master and all the movies. Now please recommend me some best movies: Type: ${selectedList[0]}, Region: ${selectedList[1]}, Actor: ${_actorController.text}, Other info: ${_infoController.text}'),
+                        )));
+          },
+          isExtended: true,
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          icon: const Icon(Icons.search_rounded),
+          label: const Text("Let's gooooooooo"),
+        );
+      }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
+}
+
+//Custom Heading Text
+class PrefHeadingText extends StatelessWidget {
+  const PrefHeadingText({
+    super.key,
+    required this.heading,
+  });
+  final String heading;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(
+        heading,
+        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+      ),
     );
   }
 }

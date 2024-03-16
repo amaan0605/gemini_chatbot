@@ -32,13 +32,12 @@ class _MyCustomChipsState extends State<MyCustomChips> {
             selectedColor: kGreenColor,
             labelStyle: const TextStyle(color: Colors.black),
             onSelected: (bool selected) {
-              // if (isSelected == false) {
-              //   Provider.of<ChipProvider>(context, listen: false)
-              //       .addItem(widget.list[index]);
-              // }
-
+              if (isSelected == false) {
+                Provider.of<ChipProvider>(context, listen: false)
+                    .addItem(widget.list[index]);
+              }
               setState(() {
-                _selectedIndex = (selected ? index : null)!;
+                _selectedIndex = index;
               });
             },
           );

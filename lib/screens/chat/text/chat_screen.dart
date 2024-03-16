@@ -34,11 +34,16 @@ class _ChatScreenState extends State<ChatScreen> {
       model: 'gemini-pro',
       apiKey: apiKey,
     );
+    if (widget.modelPromt != null) {
+      _sendChatMessage(widget.modelPromt!);
+      print('object\n\n\n');
+    }
+
     _chat = _model.startChat(history: [
       Content.text(widget.modelPromt ??
           "You are BotBuddy, a personal AI Chatbot. Your job is to answer user's questions. You can use a fun tone"),
       Content.model([
-        TextPart(widget.modelPromt ??
+        TextPart(widget.modelReply ??
             "Nice to meet you, I'm BotBuddy! Ask me anything and I'll do my best to help!")
       ])
     ]);
@@ -58,7 +63,6 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // print('build called');
     return Scaffold(
       appBar: AppBar(
         title: const Text(
