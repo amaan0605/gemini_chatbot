@@ -132,9 +132,9 @@ class _PreferencePageState extends State<PreferencePage> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const ChatScreen(
-                        // modelPromt:
-                        //     'You are a film master and all the movies. Now please recommend me some best movies: Type: ${selectedList[0]}, Region: ${selectedList[1]}, Actor: ${_actorController.text}, Other info: ${_infoController.text}'),
+                    builder: (context) => ChatScreen(
+                          modelPromt:
+                              'You are a film master and all the movies. Now please recommend me some best movies: Type: ${selectedList[0]}, Region: ${selectedList[1]}, Actor: ${_actorController.text}, Other info: ${_infoController.text}',
                         )));
           },
           isExtended: true,

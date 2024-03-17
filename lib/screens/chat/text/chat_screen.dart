@@ -34,19 +34,22 @@ class _ChatScreenState extends State<ChatScreen> {
       model: 'gemini-pro',
       apiKey: apiKey,
     );
-    if (widget.modelPromt != null) {
-      _sendChatMessage(widget.modelPromt!);
-      print('object\n\n\n');
-    }
 
     _chat = _model.startChat(history: [
-      Content.text(widget.modelPromt ??
+      Content.text(
           "You are BotBuddy, a personal AI Chatbot. Your job is to answer user's questions. You can use a fun tone"),
       Content.model([
-        TextPart(widget.modelReply ??
+        TextPart(
             "Nice to meet you, I'm BotBuddy! Ask me anything and I'll do my best to help!")
       ])
     ]);
+
+    if (widget.modelPromt != null) {
+      Provider.of<ChatProvider>(context, listen: false)
+          .sendChatMessage(_chat, widget.modelPromt, context, _textController,
+              _textFieldFocus)
+          .whenComplete(() => _scrollDown());
+    }
   }
 
   void _scrollDown() {
@@ -82,6 +85,9 @@ class _ChatScreenState extends State<ChatScreen> {
                 child: ListView.builder(
               controller: _scrollController,
               itemBuilder: (context, idx) {
+                if (idx == 0) {
+                  return const SizedBox.shrink();
+                }
                 var content = _chat.history.toList()[idx];
                 var text = content.parts
                     .whereType<TextPart>()
@@ -94,7 +100,7 @@ class _ChatScreenState extends State<ChatScreen> {
               },
               itemCount: _chat.history.length,
             )),
-            Provider.of<ChatProvider>(context).notLoading
+            Provider.of<ChatProvider>(context).isNotLoading
                 ? Container()
                 : Row(
                     children: [
@@ -114,7 +120,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     child: CustomTextField(
                       controller: _textController,
                       onSubmitted: (String value) {
-                        _sendChatMessage(value);
+                        //_sendChatMessage(value);
                       },
                     ),
                   ),
@@ -126,7 +132,10 @@ class _ChatScreenState extends State<ChatScreen> {
                     radius: 23,
                     child: IconButton(
                       onPressed: () async {
-                        _sendChatMessage(_textController.text);
+                        Provider.of<ChatProvider>(context, listen: false)
+                            .sendChatMessage(_chat, _textController.text,
+                                context, _textController, _textFieldFocus)
+                            .whenComplete(() => _scrollDown());
                       },
                       icon: SvgPicture.asset(
                         'assets/images/send.svg',
@@ -143,55 +152,55 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  Future<void> _sendChatMessage(String message) async {
-    ChatProvider chatProvider =
-        Provider.of<ChatProvider>(context, listen: false);
-    //set loading as true
-    chatProvider.setTrue();
+//   Future<void> _sendChatMessage(String message) async {
+//     ChatProvider chatProvider =
+//         Provider.of<ChatProvider>(context, listen: false);
+//     //set loading as true
+//     chatProvider.setTrue();
 
-    try {
-      var response = await _chat.sendMessage(
-        Content.text(message),
-      );
-      var text = response.text;
+//     try {
+//       var response = await _chat.sendMessage(
+//         Content.text(message),
+//       );
+//       var text = response.text;
 
-      if (text == null) {
-        _showError('No response from API.');
-        return;
-      } else {
-        chatProvider.setFalse();
-        _scrollDown();
-      }
-    } catch (e) {
-      _showError(e.toString());
-      chatProvider.setFalse();
-    } finally {
-      _textController.clear();
-      chatProvider.setFalse();
-      setState(() {});
-      _textFieldFocus.requestFocus();
-    }
-  }
+//       if (text == null) {
+//         _showError('No response from API.');
+//         return;
+//       } else {
+//         chatProvider.setFalse();
+//         _scrollDown();
+//       }
+//     } catch (e) {
+//       _showError(e.toString());
+//       chatProvider.setFalse();
+//     } finally {
+//       _textController.clear();
+//       chatProvider.setFalse();
+//       setState(() {});
+//       _textFieldFocus.requestFocus();
+//     }
+//   }
 
-  void _showError(String message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Something went wrong'),
-          content: SingleChildScrollView(
-            child: SelectableText(message),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('OK'),
-            )
-          ],
-        );
-      },
-    );
-  }
+//   void _showError(String message) {
+//     showDialog(
+//       context: context,
+//       builder: (context) {
+//         return AlertDialog(
+//           title: const Text('Something went wrong'),
+//           content: SingleChildScrollView(
+//             child: SelectableText(message),
+//           ),
+//           actions: [
+//             TextButton(
+//               onPressed: () {
+//                 Navigator.of(context).pop();
+//               },
+//               child: const Text('OK'),
+//             )
+//           ],
+//         );
+//       },
+//     );
+//   }
 }

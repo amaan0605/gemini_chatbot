@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => ChatProvider()),
         ChangeNotifierProvider(create: (context) => NavigatorProvider()),
         ChangeNotifierProvider(create: (context) => SignupProvider()),
-        ChangeNotifierProvider(create: (context) => ChipProvider())
+        ChangeNotifierProvider(create: (context) => ChipProvider()),
       ],
       child: MaterialApp(
         title: 'BotBuddy',

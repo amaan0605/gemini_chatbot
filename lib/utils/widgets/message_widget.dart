@@ -62,6 +62,7 @@ class MessageWidget extends StatelessWidget {
                   selectable: true,
                   data: text,
                   styleSheet: MarkdownStyleSheet(
+                      listBullet: const TextStyle(color: Colors.black),
                       a: const TextStyle(color: Colors.black, fontSize: 15),
                       p: isFromUser
                           ? const TextStyle(color: Colors.white, fontSize: 15)
