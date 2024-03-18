@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gemini_chatbot/main.dart';
 import 'package:gemini_chatbot/providers/chip_provider.dart';
+import 'package:gemini_chatbot/providers/chat_provider.dart';
 import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
 import 'package:gemini_chatbot/utils/common/frosted_glass_box.dart';
 import 'package:gemini_chatbot/utils/common/my_chips.dart';
@@ -127,15 +128,11 @@ class _PreferencePageState extends State<PreferencePage> {
         return FloatingActionButton.extended(
           onPressed: () {
             final selectedList = value.selectedList;
-            // final selectedList =
-            //     Provider.of<ChipProvider>(context, listen: false).selectedList;
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => ChatScreen(
-                          modelPromt:
-                              'You are a film master and all the movies. Now please recommend me some best movies: Type: ${selectedList[0]}, Region: ${selectedList[1]}, Actor: ${_actorController.text}, Other info: ${_infoController.text}',
-                        )));
+            Provider.of<ChatProvider>(context, listen: false)
+                .sendChatMessage(context,
+                    'You are a film master and all the movies. Now please recommend me some best movies: Type: ${selectedList[0]}, Region: ${selectedList[1]}, Actor: ${_actorController.text}, Other info: ${_infoController.text}')
+                .whenComplete(
+                    () => Navigator.popAndPushNamed(context, '/chatscreen'));
           },
           isExtended: true,
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,

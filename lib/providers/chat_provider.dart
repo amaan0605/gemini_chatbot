@@ -1,50 +1,56 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:gemini_chatbot/secret/secret_key.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
 class ChatProvider extends ChangeNotifier {
-  // final ChatSession? chat;
+  late GenerativeModel _model;
+  late ChatSession _chatInstance;
   bool isNotLoading = true;
 
-  Future<void> sendChatMessage(
-      ChatSession chat,
-      String? message,
-      BuildContext context,
-      TextEditingController textController,
-      FocusNode textFieldFocus) async {
-    message ??= textController.text.trim();
-    if (message.isEmpty) {
-      _showError('Please enter you promt!', context);
-      return;
-    }
-    toggleLoading();
+  ChatSession get chat => _chatInstance;
 
-    try {
-      final response = await chat.sendMessage(Content.text(message));
-      final text = response.text;
+  ChatProvider() {
+    _model = GenerativeModel(
+      model: 'gemini-pro',
+      apiKey: apiKey,
+    );
 
-      if (text == null) {
-        _showError('No Response from API', context);
-        return;
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print(e.toString());
-      }
-      _showError(e.toString(), context);
-    } finally {
-      toggleLoading();
-      textController.clear();
-      textFieldFocus.requestFocus();
-      notifyListeners();
-    }
+    _initChat();
   }
 
-  void customResponse(String message) {}
+  void _initChat() async {
+    _chatInstance = _model.startChat(history: [
+      Content.text(
+          "You are BotBuddy, a personal AI Chatbot. Your job is to answer user's questions. You can use a fun tone"),
+      Content.model([
+        TextPart(
+            "Nice to meet you, I'm BotBuddy! Ask me anything and I'll do my best to help!")
+      ])
+    ]);
+    notifyListeners();
+  }
 
+  //loading
   void toggleLoading() {
     isNotLoading = !isNotLoading;
     notifyListeners();
+  }
+
+  Future<void> sendChatMessage(BuildContext context, String message) async {
+    // Set loading as true
+    toggleLoading();
+
+    try {
+      var response = await chat.sendMessage(Content.text(message));
+      var text = response.text;
+      if (text == null) {
+        _showError('No response from API.', context);
+      } else {}
+    } catch (e) {
+      _showError(e.toString(), context);
+    } finally {
+      toggleLoading();
+    }
   }
 
   void _showError(String message, BuildContext context) {
