@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gemini_chatbot/main.dart';
+import 'package:gemini_chatbot/providers/chat_provider.dart';
 import 'package:gemini_chatbot/providers/navigator_provider.dart';
+import 'package:gemini_chatbot/screens/botScreens/book_finder.dart';
+import 'package:gemini_chatbot/screens/botScreens/email_writer.dart';
+import 'package:gemini_chatbot/screens/botScreens/programming_solver.dart';
 import 'package:gemini_chatbot/screens/chat/image/image_search_chat_screen.dart';
 import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
 import 'package:gemini_chatbot/screens/chat/voice/voice_search_chat_screen.dart';
@@ -12,14 +16,9 @@ import 'package:gemini_chatbot/utils/widgets/custom_widgets.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     screenSize = MediaQuery.of(context).size;
@@ -115,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const ChatScreen()));
+                                builder: (context) => EmailWriterScreen()));
                       },
                     ),
                     BotVarient(
@@ -127,7 +126,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const ChatScreen()));
+                                builder: (context) =>
+                                    ProgrammingSolverScreen()));
                       },
                     ),
                     BotVarient(
@@ -139,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const ChatScreen()));
+                                builder: (context) => BookFinderScreen()));
                       },
                     ),
                   ],

@@ -3,6 +3,7 @@ import 'package:gemini_chatbot/main.dart';
 import 'package:gemini_chatbot/providers/chip_provider.dart';
 import 'package:gemini_chatbot/providers/chat_provider.dart';
 import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
+import 'package:gemini_chatbot/utils/common/constants.dart';
 import 'package:gemini_chatbot/utils/common/frosted_glass_box.dart';
 import 'package:gemini_chatbot/utils/common/my_chips.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_textfield.dart';
@@ -89,7 +90,7 @@ class _PreferencePageState extends State<PreferencePage> {
                   ),
                 ),
                 const SizedBox(height: 30),
-                const PrefHeadingText(
+                const MyHeadingText(
                   heading: 'G E N R E',
                 ),
                 const Divider(),
@@ -98,21 +99,21 @@ class _PreferencePageState extends State<PreferencePage> {
                   chipName: 'genre',
                 ),
                 const SizedBox(height: 30),
-                const PrefHeadingText(heading: 'C O U N T R Y'),
+                const MyHeadingText(heading: 'C O U N T R Y'),
                 const Divider(),
                 MyCustomChips(
                   list: movieCountry,
                   chipName: 'country',
                 ),
                 const SizedBox(height: 30),
-                const PrefHeadingText(heading: 'A C T O R'),
+                const MyHeadingText(heading: 'A C T O R'),
                 const Divider(),
                 CustomTextField(
                   controller: _actorController,
                   hintText: 'Enter any Actor name',
                 ),
                 const SizedBox(height: 30),
-                const PrefHeadingText(heading: 'O T H E R   I N F O'),
+                const MyHeadingText(heading: 'O T H E R   I N F O'),
                 const Divider(),
                 CustomTextField(
                   controller: _infoController,
@@ -143,25 +144,6 @@ class _PreferencePageState extends State<PreferencePage> {
         );
       }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
-  }
-}
-
-//Custom Heading Text
-class PrefHeadingText extends StatelessWidget {
-  const PrefHeadingText({
-    super.key,
-    required this.heading,
-  });
-  final String heading;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Text(
-        heading,
-        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
-      ),
     );
   }
 }

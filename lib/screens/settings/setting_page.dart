@@ -15,7 +15,7 @@ class SettingsPage extends StatelessWidget {
       appBar: appBar(),
       body: backgroundContainer(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.fromLTRB(8.0, 40, 8, 8),
           child: Column(
             children: [
               //Get Premium

@@ -15,10 +15,7 @@ class BotVarientsPage extends StatelessWidget {
       body: backgroundContainer(
         child: Column(
           children: [
-            const Text(
-              'Varients',
-              style: TextStyle(fontSize: 25),
-            ),
+            const SizedBox(height: 30),
             Expanded(
               child: Container(
                 margin: const EdgeInsets.only(bottom: 50),

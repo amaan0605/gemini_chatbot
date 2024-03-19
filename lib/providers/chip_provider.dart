@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class ChipProvider extends ChangeNotifier {
-  final List<String> _genreList = [];
-  final List<String> _countryList = [];
+  final List<String> _genreList = ['action'];
+  final List<String> _countryList = ['india'];
   bool isSelected = false;
 
   List<String> get genreList => _genreList;

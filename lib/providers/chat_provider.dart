@@ -21,7 +21,7 @@ class ChatProvider extends ChangeNotifier {
   void _initChat() async {
     _chatInstance = _model.startChat(history: [
       Content.text(
-          "You are BotBuddy, a personal AI Chatbot. Your job is to answer user's questions. You can use a fun tone"),
+          "You are BotBuddy, a personal AI Chatbot. Your job is to answer user's questions. You can use a fun tone and emoji"),
       Content.model([
         TextPart(
             "Nice to meet you, I'm BotBuddy! Ask me anything and I'll do my best to help!")
