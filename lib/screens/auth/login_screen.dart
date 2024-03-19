@@ -134,7 +134,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               padding: const EdgeInsets.only(top: 10),
                               child: TextButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, '/signup');
+                                  Navigator.pushReplacementNamed(
+                                      context, '/signup');
                                 },
                                 child: const Text("New User? Register Now"),
                               ),

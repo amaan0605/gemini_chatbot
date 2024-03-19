@@ -5,6 +5,7 @@ import 'package:gemini_chatbot/screens/chat/image/image_search_chat_screen.dart'
 import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
 import 'package:gemini_chatbot/screens/chat/voice/voice_search_chat_screen.dart';
 import 'package:gemini_chatbot/screens/varients/preference_page.dart';
+import 'package:gemini_chatbot/utils/common/background_image.dart';
 import 'package:gemini_chatbot/utils/widgets/bot_varients_grid.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_search_containers.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_widgets.dart';
@@ -31,17 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: appBar(),
         //BODY
         body: SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.only(top: screenSize.height * .07),
-            decoration: const BoxDecoration(
-              //BACKGROUND IMAGE
-              image: DecorationImage(
-                image: AssetImage('assets/images/bg.png'),
-                fit: BoxFit.cover,
-              ),
-              gradient: LinearGradient(
-                  colors: [Colors.black12, Colors.black87, Colors.black26]),
-            ),
+          child: backgroundContainer(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

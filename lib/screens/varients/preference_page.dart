@@ -95,12 +95,14 @@ class _PreferencePageState extends State<PreferencePage> {
                 const Divider(),
                 MyCustomChips(
                   list: movieType,
+                  chipName: 'genre',
                 ),
                 const SizedBox(height: 30),
                 const PrefHeadingText(heading: 'C O U N T R Y'),
                 const Divider(),
                 MyCustomChips(
                   list: movieCountry,
+                  chipName: 'country',
                 ),
                 const SizedBox(height: 30),
                 const PrefHeadingText(heading: 'A C T O R'),
@@ -126,13 +128,13 @@ class _PreferencePageState extends State<PreferencePage> {
       floatingActionButton:
           Consumer<ChipProvider>(builder: (context, value, child) {
         return FloatingActionButton.extended(
-          onPressed: () {
-            final selectedList = value.selectedList;
-            Provider.of<ChatProvider>(context, listen: false)
-                .sendChatMessage(context,
-                    'You are a film master and all the movies. Now please recommend me some best movies: Type: ${selectedList[0]}, Region: ${selectedList[1]}, Actor: ${_actorController.text}, Other info: ${_infoController.text}')
-                .whenComplete(
-                    () => Navigator.popAndPushNamed(context, '/chatscreen'));
+          onPressed: () async {
+            final genreList = value.genreList;
+            final counryList = value.countryList;
+            Provider.of<ChatProvider>(context, listen: false).sendChatMessage(
+                context,
+                'You are a film master and all the movies. Now please recommend me some best movies: Type: ${genreList.lastOrNull}, Region: ${counryList.lastOrNull}, Actor: ${_actorController.text}, Other info: ${_infoController.text}');
+            await Navigator.pushNamed(context, '/chatscreen');
           },
           isExtended: true,
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,

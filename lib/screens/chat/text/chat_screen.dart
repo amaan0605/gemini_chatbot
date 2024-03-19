@@ -23,6 +23,13 @@ class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _textController = TextEditingController();
   final FocusNode _textFieldFocus = FocusNode();
 
+  @override
+  void initState() {
+    Future.delayed(const Duration(seconds: 1)).then((value) => _scrollDown());
+
+    super.initState();
+  }
+
   void _scrollDown() {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) => _scrollController.animateTo(

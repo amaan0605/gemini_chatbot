@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gemini_chatbot/main.dart';
+import 'package:gemini_chatbot/utils/common/background_image.dart';
 import 'package:gemini_chatbot/utils/common/frosted_glass_box.dart';
 import 'package:gemini_chatbot/utils/widgets/common_widget.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_widgets.dart';
@@ -12,17 +13,7 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: appBar(),
-      body: Container(
-        padding: EdgeInsets.only(top: screenSize.height * .12),
-        decoration: const BoxDecoration(
-          //BACKGROUND IMAGE
-          image: DecorationImage(
-            image: AssetImage('assets/images/bg.png'),
-            fit: BoxFit.cover,
-          ),
-          gradient: LinearGradient(
-              colors: [Colors.black12, Colors.black87, Colors.black26]),
-        ),
+      body: backgroundContainer(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(

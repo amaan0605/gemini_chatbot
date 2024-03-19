@@ -38,6 +38,7 @@ class CustomTextField extends StatelessWidget {
         ),
       ),
       child: TextField(
+          //autofocus: true,
           maxLines: maxLines ?? 1,
           controller: controller,
           obscureText: toHide ?? false,

@@ -147,7 +147,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               padding: const EdgeInsets.only(top: 15),
                               child: TextButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, '/login');
+                                  Navigator.pushReplacementNamed(
+                                      context, '/login');
                                 },
                                 child:
                                     const Text("Already Registered? Login Now"),
