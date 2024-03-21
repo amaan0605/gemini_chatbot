@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gemini_chatbot/main.dart';
 import 'package:gemini_chatbot/utils/common/background_image.dart';
 import 'package:gemini_chatbot/utils/widgets/bot_varients_grid.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_widgets.dart';
@@ -27,54 +26,69 @@ class BotVarientsPage extends StatelessWidget {
                   padding: const EdgeInsets.all(20),
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
-                  children: const [
+                  children: [
                     BotVarient(
-                      color: Color(0xFF7BD3EA),
+                      color: const Color(0xFF7BD3EA),
                       title: 'Movie Recommend',
                       subtitle: 'Find best movies around you',
                       icon: Icons.movie_creation_outlined,
+                      onTap: () {
+                        Navigator.pushNamed(context, '/movieScreen');
+                      },
                     ),
                     BotVarient(
-                      color: Color(0xFFDFCCFB),
+                      color: const Color(0xFFDFCCFB),
                       title: 'Email Writer',
                       subtitle: 'write professional Emails',
                       icon: Icons.email_outlined,
+                      onTap: () {
+                        Navigator.pushNamed(context, '/emailScreen');
+                      },
                     ),
                     BotVarient(
-                      color: Color(0xFFFFBE98),
+                      color: const Color(0xFFFFBE98),
                       title: 'Programming',
                       subtitle: 'Solve your coding doubts',
                       icon: Icons.code,
+                      onTap: () {
+                        Navigator.pushNamed(context, '/programmingScreen');
+                      },
                     ),
                     BotVarient(
-                      color: Color(0xFFF0DBAF),
+                      color: const Color(0xFFF0DBAF),
                       title: 'Book',
                       subtitle: 'find best books for you',
                       icon: Icons.book_outlined,
+                      onTap: () {
+                        Navigator.pushNamed(context, '/bookScreen');
+                      },
                     ),
                     BotVarient(
-                      color: Color(0xFF9BA17B),
+                      color: const Color(0xFF9BA17B),
                       title: 'Play Games',
                       subtitle: 'find best books for you',
                       icon: Icons.gamepad,
+                      onTap: () => Navigator.pushNamed(context, '/gameScreen'),
                     ),
                     BotVarient(
-                      color: Color(0xFFADE4DB),
-                      title: 'Solve Doubt',
+                      color: const Color(0xFFADE4DB),
+                      title: 'Translate',
                       subtitle: 'find best books for you',
-                      icon: Icons.lightbulb_outline,
+                      icon: Icons.translate,
+                      onTap: () =>
+                          Navigator.pushNamed(context, '/translateScreen'),
                     ),
-                    BotVarient(
+                    const BotVarient(
                       color: Color(0xFFF0DBAF),
-                      title: 'Book',
+                      title: 'Aritcle Writer',
                       subtitle: 'find best books for you',
-                      icon: Icons.book_outlined,
+                      icon: Icons.article_outlined,
                     ),
-                    BotVarient(
+                    const BotVarient(
                       color: Color(0xFF9BA17B),
-                      title: 'Play Games',
+                      title: 'Travel Plan',
                       subtitle: 'find best books for you',
-                      icon: Icons.gamepad,
+                      icon: Icons.travel_explore,
                     ),
                   ],
                 ),

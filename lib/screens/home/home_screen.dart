@@ -8,7 +8,7 @@ import 'package:gemini_chatbot/screens/botScreens/programming_solver.dart';
 import 'package:gemini_chatbot/screens/chat/image/image_search_chat_screen.dart';
 import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
 import 'package:gemini_chatbot/screens/chat/voice/voice_search_chat_screen.dart';
-import 'package:gemini_chatbot/screens/varients/preference_page.dart';
+import 'package:gemini_chatbot/screens/botScreens/movie_recommend.dart';
 import 'package:gemini_chatbot/utils/common/background_image.dart';
 import 'package:gemini_chatbot/utils/widgets/bot_varients_grid.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_search_containers.dart';
@@ -26,10 +26,7 @@ class HomeScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         extendBodyBehindAppBar: true,
-
-        //APPBAR
         appBar: appBar(),
-        //BODY
         body: SingleChildScrollView(
           child: backgroundContainer(
             child: Column(
@@ -102,7 +99,8 @@ class HomeScreen extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const PreferencePage()));
+                                builder: (context) =>
+                                    const MovieRecommendScreen()));
                       },
                     ),
                     BotVarient(
@@ -114,7 +112,8 @@ class HomeScreen extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => EmailWriterScreen()));
+                                builder: (context) =>
+                                    const EmailWriterScreen()));
                       },
                     ),
                     BotVarient(

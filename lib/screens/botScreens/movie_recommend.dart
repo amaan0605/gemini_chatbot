@@ -3,20 +3,21 @@ import 'package:gemini_chatbot/main.dart';
 import 'package:gemini_chatbot/providers/chip_provider.dart';
 import 'package:gemini_chatbot/providers/chat_provider.dart';
 import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
+import 'package:gemini_chatbot/utils/common/background_image.dart';
 import 'package:gemini_chatbot/utils/common/constants.dart';
 import 'package:gemini_chatbot/utils/common/frosted_glass_box.dart';
 import 'package:gemini_chatbot/utils/common/my_chips.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_textfield.dart';
 import 'package:provider/provider.dart';
 
-class PreferencePage extends StatefulWidget {
-  const PreferencePage({super.key});
+class MovieRecommendScreen extends StatefulWidget {
+  const MovieRecommendScreen({super.key});
 
   @override
-  State<PreferencePage> createState() => _PreferencePageState();
+  State<MovieRecommendScreen> createState() => _MovieRecommendScreenState();
 }
 
-class _PreferencePageState extends State<PreferencePage> {
+class _MovieRecommendScreenState extends State<MovieRecommendScreen> {
   final TextEditingController _actorController = TextEditingController();
   final TextEditingController _infoController = TextEditingController();
   List<String> movieCountry = [
@@ -55,23 +56,14 @@ class _PreferencePageState extends State<PreferencePage> {
 
   @override
   Widget build(BuildContext context) {
-    //print(Provider.of<ChipProvider>(context).selectedList);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Movie Recommend'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        child: Container(
-          decoration: const BoxDecoration(
-            //BACKGROUND IMAGE
-            image: DecorationImage(
-              image: AssetImage('assets/images/bg.png'),
-              fit: BoxFit.cover,
-            ),
-            gradient: LinearGradient(
-                colors: [Colors.black12, Colors.black87, Colors.black26]),
-          ),
+        child: backgroundContainer(
+          padding: 0,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(8, 15, 8, 0),
             child: Column(
