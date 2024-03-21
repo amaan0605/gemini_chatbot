@@ -78,17 +78,21 @@ class BotVarientsPage extends StatelessWidget {
                       onTap: () =>
                           Navigator.pushNamed(context, '/translateScreen'),
                     ),
-                    const BotVarient(
-                      color: Color(0xFFF0DBAF),
+                    BotVarient(
+                      color: const Color(0xFFF0DBAF),
                       title: 'Aritcle Writer',
                       subtitle: 'find best books for you',
                       icon: Icons.article_outlined,
+                      onTap: () =>
+                          Navigator.pushNamed(context, '/articleScreen'),
                     ),
-                    const BotVarient(
-                      color: Color(0xFF9BA17B),
+                    BotVarient(
+                      color: const Color(0xFF9BA17B),
                       title: 'Travel Plan',
                       subtitle: 'find best books for you',
                       icon: Icons.travel_explore,
+                      onTap: () =>
+                          Navigator.pushNamed(context, '/travelScreen'),
                     ),
                   ],
                 ),

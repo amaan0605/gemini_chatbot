@@ -1,31 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:gemini_chatbot/main.dart';
-import 'package:gemini_chatbot/providers/chat_provider.dart';
 import 'package:gemini_chatbot/screens/navigationBar/my_fab.dart';
 import 'package:gemini_chatbot/utils/common/background_image.dart';
 import 'package:gemini_chatbot/utils/common/constants.dart';
 import 'package:gemini_chatbot/utils/common/frosted_glass_box.dart';
-import 'package:gemini_chatbot/utils/common/my_chips.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_textfield.dart';
-import 'package:provider/provider.dart';
 
-class GameScreen extends StatelessWidget {
-  GameScreen({super.key});
+class ArticleWriteScreen extends StatefulWidget {
+  const ArticleWriteScreen({super.key});
 
-  final TextEditingController _gameController = TextEditingController();
+  @override
+  State<ArticleWriteScreen> createState() => _ArticleWriteScreenState();
+}
 
-  List myGameList = [
-    'Interactive Storytelling',
-    'Word Games',
-    'Trivia',
-    'Role-Playing',
-    'Creative Writing'
-  ];
+class _ArticleWriteScreenState extends State<ArticleWriteScreen> {
+  final TextEditingController _articleController = TextEditingController();
+  @override
+  void dispose() {
+    _articleController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Play Game with me'),
+        title: const Text('Article Writer'),
+        centerTitle: true,
       ),
       body: backgroundContainer(
           padding: 10,
@@ -39,7 +40,7 @@ class GameScreen extends StatelessWidget {
                   child: const Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
-                      "Who's the Champ? Play Games & See Who Reigns Supreme with BotBuddy!👾🎮",
+                      "BotBuddy: Your AI Co-Writer for Articles, Blogs & More! ➕",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
                       textAlign: TextAlign.center,
@@ -47,29 +48,35 @@ class GameScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 30),
-                const MyHeadingText(heading: 'G A M E    T Y P E'),
-                const Divider(),
-                MyCustomChips(list: myGameList),
-                const SizedBox(height: 30),
-                const MyHeadingText(heading: 'A N Y   O T H E R'),
+                const MyHeadingText(heading: 'T O P I C'),
                 CustomTextField(
-                  controller: _gameController,
-                  hintText: 'Type of game you want to play...',
+                  controller: _articleController,
+                  hintText: 'Please specify your topic...',
+                  maxLines: 2,
+                ),
+                const SizedBox(height: 20),
+                const MyHeadingText(heading: 'W O R D   L I M I T'),
+                CustomTextField(
+                  controller: _articleController,
+                  hintText: 'Enter your maximum word limit...',
+                ),
+                const SizedBox(height: 20),
+                const MyHeadingText(
+                    heading: 'O T H E R  I N F O R M A T I O N'),
+                CustomTextField(
+                  controller: _articleController,
+                  hintText: 'Enter other information (i.e: Language)',
+                  maxLines: 3,
                 ),
                 const SizedBox(
                   height: 20,
-                )
+                ),
               ],
             ),
           )),
       floatingActionButton: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: myFloatingActionButton(onTap: () async {
-          Provider.of<ChatProvider>(context, listen: false).sendChatMessage(
-              context,
-              'Play game with me. this is my game type: Type: ${myGameList.firstOrNull}');
-          await Navigator.pushNamed(context, '/chatscreen');
-        }),
+        padding: const EdgeInsets.only(bottom: 20.0),
+        child: myFloatingActionButton(onTap: () {}),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
