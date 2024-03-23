@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gemini_chatbot/main.dart';
 
-Container backgroundContainer({Widget? child, double? padding}) {
+Container backgroundContainer(
+    {Widget? child, double? padding, double? height}) {
   return Container(
+    height: height,
     padding: EdgeInsets.only(top: padding ?? screenSize.height * .07),
     decoration: const BoxDecoration(
       //BACKGROUND IMAGE

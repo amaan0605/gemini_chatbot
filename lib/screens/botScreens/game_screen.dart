@@ -9,18 +9,30 @@ import 'package:gemini_chatbot/utils/common/my_chips.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_textfield.dart';
 import 'package:provider/provider.dart';
 
-class GameScreen extends StatelessWidget {
-  GameScreen({super.key});
+class GameScreen extends StatefulWidget {
+  const GameScreen({super.key});
 
-  final TextEditingController _gameController = TextEditingController();
+  @override
+  State<GameScreen> createState() => _GameScreenState();
+}
+
+class _GameScreenState extends State<GameScreen> {
+  final TextEditingController _infoController = TextEditingController();
+
+  @override
+  void dispose() {
+    _infoController.dispose();
+    super.dispose();
+  }
 
   List myGameList = [
-    'Interactive Storytelling',
-    'Word Games',
     'Trivia',
+    'Word Games',
     'Role-Playing',
+    'Interactive Storytelling',
     'Creative Writing'
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,11 +61,14 @@ class GameScreen extends StatelessWidget {
                 const SizedBox(height: 30),
                 const MyHeadingText(heading: 'G A M E    T Y P E'),
                 const Divider(),
-                MyCustomChips(list: myGameList),
+                MyCustomChips(
+                  list: myGameList,
+                  chipName: 'game',
+                ),
                 const SizedBox(height: 30),
                 const MyHeadingText(heading: 'A N Y   O T H E R'),
                 CustomTextField(
-                  controller: _gameController,
+                  controller: _infoController,
                   hintText: 'Type of game you want to play...',
                 ),
                 const SizedBox(
@@ -63,11 +78,11 @@ class GameScreen extends StatelessWidget {
             ),
           )),
       floatingActionButton: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(20.0),
         child: myFloatingActionButton(onTap: () async {
           Provider.of<ChatProvider>(context, listen: false).sendChatMessage(
               context,
-              'Play game with me. this is my game type: Type: ${myGameList.firstOrNull}');
+              'Play game with me. this is my game type: Type: ${myGameList.lastOrNull}, other info: ${_infoController.text}');
           await Navigator.pushNamed(context, '/chatscreen');
         }),
       ),

@@ -15,7 +15,7 @@ import 'package:gemini_chatbot/screens/botScreens/game_screen.dart';
 import 'package:gemini_chatbot/screens/botScreens/movie_recommend.dart';
 import 'package:gemini_chatbot/screens/botScreens/programming_solver.dart';
 import 'package:gemini_chatbot/screens/botScreens/translate_screen.dart';
-import 'package:gemini_chatbot/screens/botScreens/travle_plan.dart';
+import 'package:gemini_chatbot/screens/botScreens/travel_plan.dart';
 import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
 // import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
 import 'package:gemini_chatbot/screens/home/home_screen.dart';

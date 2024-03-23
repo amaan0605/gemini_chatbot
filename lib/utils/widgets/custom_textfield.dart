@@ -7,13 +7,15 @@ class CustomTextField extends StatelessWidget {
       this.onSubmitted,
       this.hintText,
       this.toHide,
-      this.maxLines});
+      this.maxLines,
+      this.keyboardType});
 
   final TextEditingController controller;
   final Function(String)? onSubmitted;
   final String? hintText;
   final bool? toHide;
   final int? maxLines;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +42,7 @@ class CustomTextField extends StatelessWidget {
       child: TextField(
           //autofocus: true,
           maxLines: maxLines ?? 1,
+          keyboardType: keyboardType,
           controller: controller,
           obscureText: toHide ?? false,
           // expands: false,

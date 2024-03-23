@@ -38,58 +38,61 @@ class _EmailWriterScreenState extends State<EmailWriterScreen> {
         title: const Text('Email Writer📝'),
         centerTitle: true,
       ),
-      body: backgroundContainer(
-          padding: screenSize.height * .01,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                FrostedGlassBox(
-                  height: screenSize.height * .2,
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      "Write It Right, Write It Fast: BotBuddy's Email Generator ✍️📧",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
-                      textAlign: TextAlign.center,
+      body: SingleChildScrollView(
+        child: backgroundContainer(
+            height: screenSize.height,
+            padding: screenSize.height * .01,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FrostedGlassBox(
+                    height: screenSize.height * .2,
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        "Write It Right, Write It Fast: BotBuddy's Email Generator ✍️📧",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w900),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                const MyHeadingText(heading: 'Subject'),
-                CustomTextField(
-                  controller: _subjectController,
-                  hintText: 'Enter your subject',
-                ),
-                const SizedBox(height: 10),
-                const MyHeadingText(
-                  heading: 'Name of Recipient',
-                ),
-                CustomTextField(
-                  controller: _nameController,
-                  hintText: 'Enter your Recipient name',
-                ),
-                const SizedBox(height: 10),
-                const MyHeadingText(heading: 'Date'),
-                CustomTextField(
-                  controller: _dateController,
-                  hintText: 'Enter preferred date',
-                ),
-                const SizedBox(height: 10),
-                const MyHeadingText(
-                  heading: 'other info',
-                ),
-                CustomTextField(
-                  controller: _infoController,
-                  maxLines: 2,
-                  hintText: 'Enter any other information',
-                ),
-              ],
-            ),
-          )),
+                  const SizedBox(height: 10),
+                  const MyHeadingText(heading: 'S U B J E C T'),
+                  CustomTextField(
+                    controller: _subjectController,
+                    hintText: 'Enter your subject',
+                  ),
+                  const SizedBox(height: 10),
+                  const MyHeadingText(
+                    heading: 'N A M E   O F  R E C I P I E N T',
+                  ),
+                  CustomTextField(
+                    controller: _nameController,
+                    hintText: 'Enter your Recipient name',
+                  ),
+                  const SizedBox(height: 10),
+                  const MyHeadingText(heading: 'D A T E'),
+                  CustomTextField(
+                    controller: _dateController,
+                    hintText: 'Enter preferred date',
+                  ),
+                  const SizedBox(height: 10),
+                  const MyHeadingText(
+                    heading: 'O T H E R   I N F O',
+                  ),
+                  CustomTextField(
+                    controller: _infoController,
+                    maxLines: 2,
+                    hintText: 'Enter any other information',
+                  ),
+                ],
+              ),
+            )),
+      ),
       floatingActionButton: myFloatingActionButton(onTap: () async {
         Provider.of<ChatProvider>(context, listen: false).sendChatMessage(
             context,

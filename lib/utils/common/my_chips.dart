@@ -38,7 +38,11 @@ class _MyCustomChipsState extends State<MyCustomChips> {
               } else if (widget.chipName == 'country') {
                 Provider.of<ChipProvider>(context, listen: false)
                     .addCounryList(widget.list[index]);
+              } else if (widget.chipName == 'game') {
+                Provider.of<ChipProvider>(context, listen: false)
+                    .addGameList(widget.list[index]);
               }
+
               setState(() {
                 _selectedIndex = index;
               });

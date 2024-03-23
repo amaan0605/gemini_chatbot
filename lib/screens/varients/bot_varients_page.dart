@@ -30,7 +30,7 @@ class BotVarientsPage extends StatelessWidget {
                     BotVarient(
                       color: const Color(0xFF7BD3EA),
                       title: 'Movie Recommend',
-                      subtitle: 'Find best movies around you',
+                      subtitle: 'Find Your Perfect Movie Match',
                       icon: Icons.movie_creation_outlined,
                       onTap: () {
                         Navigator.pushNamed(context, '/movieScreen');
@@ -39,14 +39,22 @@ class BotVarientsPage extends StatelessWidget {
                     BotVarient(
                       color: const Color(0xFFDFCCFB),
                       title: 'Email Writer',
-                      subtitle: 'write professional Emails',
+                      subtitle: 'Write It Right, Write It Fast',
                       icon: Icons.email_outlined,
                       onTap: () {
                         Navigator.pushNamed(context, '/emailScreen');
                       },
                     ),
                     BotVarient(
-                      color: const Color(0xFFFFBE98),
+                      color: const Color(0xFF8E7AB5),
+                      title: 'Travel Plan',
+                      subtitle: 'Your AI Travel Planner',
+                      icon: Icons.travel_explore,
+                      onTap: () =>
+                          Navigator.pushNamed(context, '/travelScreen'),
+                    ),
+                    BotVarient(
+                      color: const Color(0xFFEEA5A6),
                       title: 'Programming',
                       subtitle: 'Solve your coding doubts',
                       icon: Icons.code,
@@ -57,42 +65,34 @@ class BotVarientsPage extends StatelessWidget {
                     BotVarient(
                       color: const Color(0xFFF0DBAF),
                       title: 'Book',
-                      subtitle: 'find best books for you',
+                      subtitle: 'Find books for you',
                       icon: Icons.book_outlined,
                       onTap: () {
                         Navigator.pushNamed(context, '/bookScreen');
                       },
                     ),
                     BotVarient(
-                      color: const Color(0xFF9BA17B),
+                      color: const Color(0xFFC3E2C2),
                       title: 'Play Games',
-                      subtitle: 'find best books for you',
+                      subtitle: 'Play Games with BotBuddy!',
                       icon: Icons.gamepad,
                       onTap: () => Navigator.pushNamed(context, '/gameScreen'),
                     ),
                     BotVarient(
-                      color: const Color(0xFFADE4DB),
+                      color: const Color(0xFFD2E0FB),
                       title: 'Translate',
-                      subtitle: 'find best books for you',
+                      subtitle: 'Translate Anything, Anywhere',
                       icon: Icons.translate,
                       onTap: () =>
                           Navigator.pushNamed(context, '/translateScreen'),
                     ),
                     BotVarient(
-                      color: const Color(0xFFF0DBAF),
+                      color: const Color(0xFFDEBA9D),
                       title: 'Aritcle Writer',
-                      subtitle: 'find best books for you',
+                      subtitle: 'Write Faster & Smarter',
                       icon: Icons.article_outlined,
                       onTap: () =>
                           Navigator.pushNamed(context, '/articleScreen'),
-                    ),
-                    BotVarient(
-                      color: const Color(0xFF9BA17B),
-                      title: 'Travel Plan',
-                      subtitle: 'find best books for you',
-                      icon: Icons.travel_explore,
-                      onTap: () =>
-                          Navigator.pushNamed(context, '/travelScreen'),
                     ),
                   ],
                 ),
