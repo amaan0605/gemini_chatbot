@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -25,12 +26,14 @@ import 'package:gemini_chatbot/screens/splash/splash_screen.dart';
 // import 'package:gemini_chatbot/screens/splash/splash_screen.dart';
 // import 'package:gemini_chatbot/secret/secret_key.dart';
 import 'package:gemini_chatbot/theme/dark_theme.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
 late Size screenSize;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  unawaited(MobileAds.instance.initialize());
   runApp(const MyApp());
 }
 
@@ -59,10 +62,10 @@ class MyApp extends StatelessWidget {
           '/chatscreen': (context) => const ChatScreen(),
           '/movieScreen': (context) => const MovieRecommendScreen(),
           '/emailScreen': (context) => const EmailWriterScreen(),
-          '/bookScreen': (context) => BookFinderScreen(),
-          '/programmingScreen': (context) => ProgrammingSolverScreen(),
-          '/gameScreen': (context) => GameScreen(),
-          '/translateScreen': (context) => TranslateScreen(),
+          '/bookScreen': (context) => const BookFinderScreen(),
+          '/programmingScreen': (context) => const ProgrammingSolverScreen(),
+          '/gameScreen': (context) => const GameScreen(),
+          '/translateScreen': (context) => const TranslateScreen(),
           '/articleScreen': (context) => const ArticleWriteScreen(),
           '/travelScreen': (context) => const TravelPlanScreen(),
         },

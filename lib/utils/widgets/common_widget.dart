@@ -21,7 +21,7 @@ class SettingsTitleButton extends StatelessWidget {
         const SizedBox(width: 15),
         Text(
           text,
-          style: const TextStyle(fontSize: 16),
+          style: const TextStyle(fontSize: 16, letterSpacing: 3),
         ),
       ]),
     );

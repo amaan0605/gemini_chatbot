@@ -4,6 +4,7 @@ import 'package:gemini_chatbot/utils/common/background_image.dart';
 import 'package:gemini_chatbot/utils/common/frosted_glass_box.dart';
 import 'package:gemini_chatbot/utils/widgets/common_widget.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_widgets.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -59,34 +60,38 @@ class SettingsPage extends StatelessWidget {
               //Other Settings
               FrostedGlassBox(
                   height: screenSize.height * .3,
-                  child: const Padding(
-                    padding: EdgeInsets.all(18.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(18.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SettingsTitleButton(
-                          text: 'Privacy Policy',
-                          icon: Icons.privacy_tip_outlined,
+                          text: 'BUY ME A COFFEE',
+                          icon: Icons.coffee,
+                          onTap: () {
+                            _launchUrl(
+                                'https://www.buymeacoffee.com/botbuddyy');
+                          },
                         ),
-                        Divider(color: Colors.white24),
-                        SettingsTitleButton(
-                          text: 'Term of Services',
+                        const Divider(color: Colors.white24),
+                        const SettingsTitleButton(
+                          text: 'REQUEST FEATURE',
                           icon: Icons.edit_document,
                         ),
-                        Divider(color: Colors.white24),
-                        SettingsTitleButton(
-                          text: 'Feedback',
+                        const Divider(color: Colors.white24),
+                        const SettingsTitleButton(
+                          text: 'FEEDBACK',
                           icon: Icons.feedback,
                         ),
-                        Divider(color: Colors.white24),
-                        SettingsTitleButton(
-                          text: 'Share',
+                        const Divider(color: Colors.white24),
+                        const SettingsTitleButton(
+                          text: 'SHARE',
                           icon: Icons.offline_share,
                         ),
-                        Divider(color: Colors.white24),
-                        SettingsTitleButton(
-                          text: 'Logout',
+                        const Divider(color: Colors.white24),
+                        const SettingsTitleButton(
+                          text: 'LOGOUT',
                           icon: Icons.logout,
                         ),
                       ],
@@ -97,5 +102,11 @@ class SettingsPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _launchUrl(String url) async {
+    if (!await launchUrl(Uri.parse(url), mode: LaunchMode.inAppWebView)) {
+      throw Exception('Could not launch');
+    }
   }
 }

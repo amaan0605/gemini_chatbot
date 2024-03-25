@@ -2,9 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:gemini_chatbot/utils/common/background_image.dart';
 import 'package:gemini_chatbot/utils/widgets/bot_varients_grid.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_widgets.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class BotVarientsPage extends StatelessWidget {
+class BotVarientsPage extends StatefulWidget {
   const BotVarientsPage({super.key});
+
+  @override
+  State<BotVarientsPage> createState() => _BotVarientsPageState();
+}
+
+class _BotVarientsPageState extends State<BotVarientsPage> {
+  String adUnit = 'ca-app-pub-5213209276458650/3867673722';
+  BannerAd? _bannerAd;
+  @override
+  void initState() {
+    super.initState();
+    _loadAd();
+  }
+
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +91,11 @@ class BotVarientsPage extends StatelessWidget {
                         Navigator.pushNamed(context, '/bookScreen');
                       },
                     ),
+                    // _bannerAd == null
+                    //     // Nothing to render yet.
+                    //     ? const CircularProgressIndicator()
+                    //     // The actual ad.
+                    //     : AdWidget(ad: _bannerAd!),
                     BotVarient(
                       color: const Color(0xFFC3E2C2),
                       title: 'Play Games',
@@ -98,9 +123,46 @@ class BotVarientsPage extends StatelessWidget {
                 ),
               ),
             ),
+            // _bannerAd == null
+            //     // Nothing to render yet.
+            //     ? const CircularProgressIndicator()
+            //     // The actual ad.
+            //     : SizedBox(
+            //         height: 60,
+            //         width: double.infinity,
+            //         child: AdWidget(ad: _bannerAd!)),
           ],
         ),
       ),
     );
+  }
+
+  /// Loads a banner ad.
+  void _loadAd() {
+    final bannerAd = BannerAd(
+      size: AdSize.banner,
+      adUnitId: adUnit,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        // Called when an ad is successfully received.
+        onAdLoaded: (ad) {
+          if (!mounted) {
+            ad.dispose();
+            return;
+          }
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        // Called when an ad request failed.
+        onAdFailedToLoad: (ad, error) {
+          debugPrint('BannerAd failed to load: $error');
+          ad.dispose();
+        },
+      ),
+    );
+
+    // Start loading.
+    bannerAd.load();
   }
 }
