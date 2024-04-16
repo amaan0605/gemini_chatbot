@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gemini_chatbot/main.dart';
+import 'package:gemini_chatbot/screens/auth/change_password.dart';
+import 'package:gemini_chatbot/services/auth/auth_services.dart';
 import 'package:gemini_chatbot/utils/common/background_image.dart';
 import 'package:gemini_chatbot/utils/common/frosted_glass_box.dart';
 import 'package:gemini_chatbot/utils/widgets/common_widget.dart';
@@ -25,21 +28,26 @@ class SettingsPage extends StatelessWidget {
               const SizedBox(height: 20),
               //main settings
               FrostedGlassBox(
-                  height: screenSize.height * .2,
+                  height: screenSize.height * .15,
                   child: Padding(
                     padding: const EdgeInsets.all(18.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SettingsTitleButton(
-                          text: 'Change Username',
-                          icon: Icons.person_4_outlined,
-                        ),
-                        const Divider(color: Colors.white24),
-                        const SettingsTitleButton(
+                        // const SettingsTitleButton(
+                        //   text: 'Change Username',
+                        //   icon: Icons.person_4_outlined,
+                        // ),
+                        // const Divider(color: Colors.white24),
+                        SettingsTitleButton(
                           text: 'Change Password',
                           icon: Icons.password,
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ChangePasswordScreen())),
                         ),
                         const Divider(color: Colors.white24),
                         SettingsTitleButton(
@@ -90,9 +98,10 @@ class SettingsPage extends StatelessWidget {
                           icon: Icons.offline_share,
                         ),
                         const Divider(color: Colors.white24),
-                        const SettingsTitleButton(
+                        SettingsTitleButton(
                           text: 'LOGOUT',
                           icon: Icons.logout,
+                          onTap: () => FirebaseAuth.instance.signOut(),
                         ),
                       ],
                     ),
