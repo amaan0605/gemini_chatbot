@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gemini_chatbot/secret/secret_key.dart';
 import 'package:gemini_chatbot/utils/common/background_image.dart';
 import 'package:gemini_chatbot/utils/widgets/bot_varients_grid.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_widgets.dart';
@@ -12,7 +13,6 @@ class BotVarientsPage extends StatefulWidget {
 }
 
 class _BotVarientsPageState extends State<BotVarientsPage> {
-  String adUnit = 'ca-app-pub-5213209276458650/3867673722';
   BannerAd? _bannerAd;
   @override
   void initState() {

@@ -46,6 +46,7 @@ class BotVarient extends StatelessWidget {
           ),
           Text(
             subtitle,
+            overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               fontFamily: 'Poppins',
               fontSize: 10,

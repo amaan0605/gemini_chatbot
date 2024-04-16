@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gemini_chatbot/main.dart';
 import 'package:gemini_chatbot/providers/chat_provider.dart';
@@ -17,11 +19,28 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
+  FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  Future<void> fetchUsers() async {
+    CollectionReference users = firestore.collection('users');
+    final String uid = auth.currentUser!.uid;
+
+    final result = await users.doc(uid).get();
+    print(uid);
+
+    return users.get().then((QuerySnapshot snapshot) {
+      for (var doc in snapshot.docs) {
+        print('${doc.id} => ${doc.data()}');
+      }
+    }).catchError((error) => print("Failed to fetch users: $error"));
+  }
 
   @override
   Widget build(BuildContext context) {
     screenSize = MediaQuery.of(context).size;
+    fetchUsers();
 
     return SafeArea(
       child: Scaffold(
@@ -106,7 +125,7 @@ class HomeScreen extends StatelessWidget {
                     BotVarient(
                       color: const Color(0xFFDFCCFB),
                       title: 'Email Writer',
-                      subtitle: 'write professional Emails',
+                      subtitle: 'Write professional Emails',
                       icon: Icons.email_outlined,
                       onTap: () {
                         Navigator.push(
@@ -126,19 +145,20 @@ class HomeScreen extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    ProgrammingSolverScreen()));
+                                    const ProgrammingSolverScreen()));
                       },
                     ),
                     BotVarient(
                       color: const Color(0xFFF0DBAF),
                       title: 'Book',
-                      subtitle: 'find best books for you',
+                      subtitle: 'Find best books for you',
                       icon: Icons.book_outlined,
                       onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => BookFinderScreen()));
+                                builder: (context) =>
+                                    const BookFinderScreen()));
                       },
                     ),
                   ],

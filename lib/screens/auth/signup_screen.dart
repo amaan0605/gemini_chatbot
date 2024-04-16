@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gemini_chatbot/main.dart';
 import 'package:gemini_chatbot/providers/signup_provider.dart';
@@ -18,10 +19,21 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool showPassword = true;
+
+  Future<void> addData(String username, String email) async {
+    users
+        .add({
+          'name': username,
+          'email': email,
+        })
+        .then((value) => print("User Added"))
+        .catchError((error) => print("Failed to add user: $error"));
+  }
 
   @override
   void dispose() {
@@ -121,9 +133,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   )
                                       .then((value) {
                                     if (value!.contains('Success')) {
-                                      Provider.of<SignupProvider>(context,
-                                              listen: false)
-                                          .getUsername(_nameController.text);
+                                      addData(_nameController.text,
+                                          _emailController.text);
+                                      // Provider.of<SignupProvider>(context,
+                                      //         listen: false)
+                                      //     .addData(_nameController.text,
+                                      //         _emailController.text);
+
                                       Navigator.pushReplacement(
                                           context,
                                           PageTransition(
