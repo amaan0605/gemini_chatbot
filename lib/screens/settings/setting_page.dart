@@ -7,6 +7,7 @@ import 'package:gemini_chatbot/utils/common/background_image.dart';
 import 'package:gemini_chatbot/utils/common/frosted_glass_box.dart';
 import 'package:gemini_chatbot/utils/widgets/common_widget.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_widgets.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -83,19 +84,28 @@ class SettingsPage extends StatelessWidget {
                           },
                         ),
                         const Divider(color: Colors.white24),
-                        const SettingsTitleButton(
+                        SettingsTitleButton(
                           text: 'REQUEST FEATURE',
                           icon: Icons.edit_document,
+                          onTap: () => _launchUrl(
+                              'https://docs.google.com/forms/d/e/1FAIpQLScypVjjkfzNBbclcoRIVA61a1vhCnKigV6FD-5-zxVSb1jjkw/viewform?usp=sf_link'),
                         ),
                         const Divider(color: Colors.white24),
-                        const SettingsTitleButton(
+                        SettingsTitleButton(
                           text: 'FEEDBACK',
                           icon: Icons.feedback,
+                          onTap: () => _launchUrl(
+                              'https://docs.google.com/forms/d/e/1FAIpQLSfOH35fxlCLoJYkM9sxWhe4jdNdMvfzQ-RhzGdMsTWQ8dhbTA/viewform?usp=sf_link'),
                         ),
                         const Divider(color: Colors.white24),
-                        const SettingsTitleButton(
+                        SettingsTitleButton(
                           text: 'SHARE',
                           icon: Icons.offline_share,
+                          onTap: () async {
+                            await Share.share(
+                                'check out my website https://www.humraahstore.com',
+                                subject: 'Share Feature testing!');
+                          },
                         ),
                         const Divider(color: Colors.white24),
                         SettingsTitleButton(
