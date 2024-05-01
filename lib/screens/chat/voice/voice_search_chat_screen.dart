@@ -2,7 +2,10 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gemini_chatbot/main.dart';
+import 'package:gemini_chatbot/providers/chat_provider.dart';
 import 'package:gemini_chatbot/services/api/text_api.dart';
+import 'package:provider/provider.dart';
+import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 class VoiceSearchChatScreen extends StatefulWidget {
@@ -13,10 +16,10 @@ class VoiceSearchChatScreen extends StatefulWidget {
 }
 
 class _VoiceSearchChatScreenState extends State<VoiceSearchChatScreen> {
-  String? searchText = 'Press button to search';
+  String searchText = 'Press button to search';
   SpeechToText speechToText = SpeechToText();
   bool isAvailable = false;
-  bool isListening = false;
+  bool isGlowing = false;
   @override
   void initState() {
     super.initState();
@@ -26,6 +29,40 @@ class _VoiceSearchChatScreenState extends State<VoiceSearchChatScreen> {
   void _initSpeech() async {
     isAvailable = await SpeechToText().initialize();
     setState(() {});
+  }
+
+  /// Each time to start a speech recognition session
+  void _startListening() async {
+    print("StartListing");
+    setState(() {
+      isGlowing = true;
+    });
+    print("AfterGLow");
+    await speechToText.listen(onResult: _onSpeechResult);
+    setState(() {});
+  }
+
+  /// Manually stop the active speech recognition session
+  /// Note that there are also timeouts that each platform enforces
+  /// and the SpeechToText plugin supports setting timeouts on the
+  /// listen method.
+  void _stopListening() async {
+    await speechToText.stop();
+    isGlowing = false;
+    print("Stopppppppp");
+    setState(() {});
+    Provider.of<ChatProvider>(context, listen: false)
+        .sendChatMessage(context, searchText)
+        .then((value) => Navigator.pushNamed(context, '/chatscreen'));
+  }
+
+  /// This is the callback that the SpeechToText plugin calls when
+  /// the platform returns recognized words.
+  void _onSpeechResult(SpeechRecognitionResult result) {
+    print("Resulllltttttt\n\n\n");
+    setState(() {
+      searchText = result.recognizedWords;
+    });
   }
 
   @override
@@ -41,29 +78,34 @@ class _VoiceSearchChatScreenState extends State<VoiceSearchChatScreen> {
         floatingActionButton: Container(
           padding: EdgeInsets.only(bottom: screenSize.height * .09),
           child: GestureDetector(
-            onTapUp: (_) {
-              setState(() {
-                isListening = true;
-              });
-              if (isAvailable) {
-                speechToText.listen(onResult: (value) async {
-                  setState(() {
-                    searchText = value.recognizedWords;
-                    isListening = false;
-                  });
-                  var responseText = await generatedChatResponse(searchText!);
-                  setState(() {
-                    searchText = responseText.toString();
-                  });
-                });
-              }
+            onTap: () {
+              // if (isAvailable) {
+              //   print(speechToText.isNotListening);
+              speechToText.isNotListening ? _startListening : _stopListening;
+              //}
             },
-            onDoubleTapDown: (_) {
-              setState(() {
-                isListening = false;
-              });
-            },
-            child: isListening
+
+            // (_) {
+            //   setState(() {
+            //     isListening = true;
+            //   });
+            //   if (isAvailable) {
+            //     speechToText.listen(onResult: (value) {
+            //       setState(() {
+            //         searchText = value.recognizedWords;
+            //         isListening = false;
+            //       });
+            //     });
+            //   }
+            // },
+            // onTapDown: (_) {
+            //   // print("ONTAPDOWN CALLED");
+            //   // setState(() {
+            //   //   isListening = false;
+            //   // });
+
+            // },
+            child: isGlowing
                 ? AvatarGlow(
                     child: CircleAvatar(
                         backgroundColor: Colors.black38,

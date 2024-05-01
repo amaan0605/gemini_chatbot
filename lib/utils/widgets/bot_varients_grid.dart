@@ -40,7 +40,7 @@ class BotVarient extends StatelessWidget {
             title,
             style: const TextStyle(
               fontFamily: 'Bebas',
-              fontSize: 25,
+              fontSize: 20,
               color: Colors.black,
             ),
           ),

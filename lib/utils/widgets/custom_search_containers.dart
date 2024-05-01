@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gemini_chatbot/main.dart';
 import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -24,7 +25,7 @@ class SmallSearchContainer extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.all(10),
         height: 120,
-        width: 180,
+        width: screenSize.width * .4,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20), color: color),
         child: Column(
