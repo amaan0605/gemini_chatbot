@@ -84,27 +84,6 @@ class _VoiceSearchChatScreenState extends State<VoiceSearchChatScreen> {
               speechToText.isNotListening ? _startListening : _stopListening;
               //}
             },
-
-            // (_) {
-            //   setState(() {
-            //     isListening = true;
-            //   });
-            //   if (isAvailable) {
-            //     speechToText.listen(onResult: (value) {
-            //       setState(() {
-            //         searchText = value.recognizedWords;
-            //         isListening = false;
-            //       });
-            //     });
-            //   }
-            // },
-            // onTapDown: (_) {
-            //   // print("ONTAPDOWN CALLED");
-            //   // setState(() {
-            //   //   isListening = false;
-            //   // });
-
-            // },
             child: isGlowing
                 ? AvatarGlow(
                     child: CircleAvatar(

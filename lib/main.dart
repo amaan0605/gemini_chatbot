@@ -21,6 +21,7 @@ import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
 // import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
 import 'package:gemini_chatbot/screens/home/home_screen.dart';
 import 'package:gemini_chatbot/screens/navigationBar/navigation_bar.dart';
+import 'package:gemini_chatbot/screens/settings/setting_page.dart';
 import 'package:gemini_chatbot/screens/splash/splash_screen.dart';
 // import 'package:gemini_chatbot/screens/home/home_screen.dart';
 // import 'package:gemini_chatbot/screens/splash/splash_screen.dart';
@@ -68,6 +69,7 @@ class MyApp extends StatelessWidget {
           '/translateScreen': (context) => const TranslateScreen(),
           '/articleScreen': (context) => const ArticleWriteScreen(),
           '/travelScreen': (context) => const TravelPlanScreen(),
+          '/settingsPage': (context) => const SettingsPage(),
         },
       ),
     );

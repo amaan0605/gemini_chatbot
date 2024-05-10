@@ -30,7 +30,8 @@ class _BotVarientsPageState extends State<BotVarientsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: appBar(),
+      appBar: appBar(context),
+      drawer: drawer(context),
       body: backgroundContainer(
         child: Column(
           children: [

@@ -26,7 +26,8 @@ class HomeScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         extendBodyBehindAppBar: true,
-        appBar: appBar(),
+        appBar: appBar(context),
+        drawer: drawer(context),
         body: SingleChildScrollView(
           child: backgroundContainer(
             child: Column(

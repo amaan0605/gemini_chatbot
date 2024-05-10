@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gemini_chatbot/main.dart';
 import 'package:gemini_chatbot/screens/auth/change_password.dart';
-import 'package:gemini_chatbot/services/auth/auth_services.dart';
 import 'package:gemini_chatbot/utils/common/background_image.dart';
 import 'package:gemini_chatbot/utils/common/frosted_glass_box.dart';
 import 'package:gemini_chatbot/utils/widgets/common_widget.dart';
@@ -17,15 +16,16 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: appBar(),
+      appBar: appBar(context),
+      drawer: drawer(context),
       body: backgroundContainer(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(8.0, 40, 8, 8),
           child: Column(
             children: [
               //Get Premium
-              FrostedGlassBox(
-                  height: screenSize.height * .2, child: const Text('Get VIP')),
+              // FrostedGlassBox(
+              //     height: screenSize.height * .2, child: const Text('Get VIP')),
               const SizedBox(height: 20),
               //main settings
               FrostedGlassBox(
@@ -79,22 +79,21 @@ class SettingsPage extends StatelessWidget {
                           text: 'BUY ME A COFFEE',
                           icon: Icons.coffee,
                           onTap: () {
-                            _launchUrl(
-                                'https://www.buymeacoffee.com/botbuddyy');
+                            launchURL('https://www.buymeacoffee.com/botbuddyy');
                           },
                         ),
                         const Divider(color: Colors.white24),
                         SettingsTitleButton(
                           text: 'REQUEST FEATURE',
                           icon: Icons.edit_document,
-                          onTap: () => _launchUrl(
+                          onTap: () => launchURL(
                               'https://docs.google.com/forms/d/e/1FAIpQLScypVjjkfzNBbclcoRIVA61a1vhCnKigV6FD-5-zxVSb1jjkw/viewform?usp=sf_link'),
                         ),
                         const Divider(color: Colors.white24),
                         SettingsTitleButton(
                           text: 'FEEDBACK',
                           icon: Icons.feedback,
-                          onTap: () => _launchUrl(
+                          onTap: () => launchURL(
                               'https://docs.google.com/forms/d/e/1FAIpQLSfOH35fxlCLoJYkM9sxWhe4jdNdMvfzQ-RhzGdMsTWQ8dhbTA/viewform?usp=sf_link'),
                         ),
                         const Divider(color: Colors.white24),
@@ -122,10 +121,10 @@ class SettingsPage extends StatelessWidget {
       ),
     );
   }
+}
 
-  Future<void> _launchUrl(String url) async {
-    if (!await launchUrl(Uri.parse(url), mode: LaunchMode.inAppWebView)) {
-      throw Exception('Could not launch');
-    }
+Future<void> launchURL(String url) async {
+  if (!await launchUrl(Uri.parse(url), mode: LaunchMode.inAppWebView)) {
+    throw Exception('Could not launch');
   }
 }
