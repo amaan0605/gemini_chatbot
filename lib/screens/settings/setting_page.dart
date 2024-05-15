@@ -42,7 +42,7 @@ class SettingsPage extends StatelessWidget {
                         // ),
                         // const Divider(color: Colors.white24),
                         SettingsTitleButton(
-                          text: 'Change Password',
+                          text: 'CHANGE PASSWORD',
                           icon: Icons.password,
                           onTap: () => Navigator.push(
                               context,
@@ -52,7 +52,7 @@ class SettingsPage extends StatelessWidget {
                         ),
                         const Divider(color: Colors.white24),
                         SettingsTitleButton(
-                          text: 'Change Theme',
+                          text: 'CHANGE THEME',
                           icon: Icons.precision_manufacturing_outlined,
                           onTap: () {
                             showMyDialog(
