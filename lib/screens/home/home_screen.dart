@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gemini_chatbot/main.dart';
-import 'package:gemini_chatbot/providers/chat_provider.dart';
 import 'package:gemini_chatbot/providers/navigator_provider.dart';
 import 'package:gemini_chatbot/screens/botScreens/book_finder.dart';
 import 'package:gemini_chatbot/screens/botScreens/email_writer.dart';
 import 'package:gemini_chatbot/screens/botScreens/programming_solver.dart';
 import 'package:gemini_chatbot/screens/chat/image/image_search_chat_screen.dart';
-import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
 import 'package:gemini_chatbot/screens/chat/voice/voice_search_chat_screen.dart';
 import 'package:gemini_chatbot/screens/botScreens/movie_recommend.dart';
 import 'package:gemini_chatbot/utils/common/background_image.dart';

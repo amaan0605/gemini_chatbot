@@ -24,7 +24,12 @@ AppBar appBar(BuildContext context) {
           onTap: () {
             Provider.of<NavigatorProvider>(context, listen: false).setIndex(2);
           },
-          child: const Icon(Icons.account_circle)),
+          child: SvgPicture.asset(
+            'assets/images/Bot.svg',
+            height: 30,
+            width: 30,
+            color: Colors.white,
+          )),
       const SizedBox(width: 10)
     ],
   );
