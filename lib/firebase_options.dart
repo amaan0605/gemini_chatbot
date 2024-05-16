@@ -63,6 +63,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '841060457397',
     projectId: 'botbuddy-ef467',
     storageBucket: 'botbuddy-ef467.appspot.com',
-    iosBundleId: 'com.example.geminiChatbot',
+    iosBundleId: 'com.ethix.botbuddy',
   );
 }

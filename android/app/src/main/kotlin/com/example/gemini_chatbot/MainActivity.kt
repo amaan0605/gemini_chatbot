@@ -1,4 +1,4 @@
-package com.example.gemini_chatbot
+package com.ethix.botbuddy
 
 import io.flutter.embedding.android.FlutterActivity
 

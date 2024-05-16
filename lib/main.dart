@@ -7,6 +7,7 @@ import 'package:gemini_chatbot/providers/chat_provider.dart';
 import 'package:gemini_chatbot/providers/chip_provider.dart';
 import 'package:gemini_chatbot/providers/navigator_provider.dart';
 import 'package:gemini_chatbot/providers/signup_provider.dart';
+import 'package:gemini_chatbot/providers/voice_search_provider.dart';
 import 'package:gemini_chatbot/screens/auth/login_screen.dart';
 import 'package:gemini_chatbot/screens/auth/signup_screen.dart';
 import 'package:gemini_chatbot/screens/botScreens/article_writer.dart';
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => NavigatorProvider()),
         ChangeNotifierProvider(create: (context) => SignupProvider()),
         ChangeNotifierProvider(create: (context) => ChipProvider()),
+        ChangeNotifierProvider(create: (context) => VoiceSearchProvider())
       ],
       child: MaterialApp(
         title: 'BotBuddy',

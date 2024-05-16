@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gemini_chatbot/main.dart';
-import 'package:gemini_chatbot/providers/signup_provider.dart';
 import 'package:gemini_chatbot/screens/navigationBar/navigation_bar.dart';
 import 'package:gemini_chatbot/services/auth/auth_services.dart';
 import 'package:gemini_chatbot/utils/common/constants.dart';
@@ -9,7 +8,6 @@ import 'package:gemini_chatbot/utils/common/frosted_glass_box.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_button.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_textfield.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
