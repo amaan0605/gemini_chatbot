@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gemini_chatbot/main.dart';
+import 'package:gemini_chatbot/providers/admob_provider.dart';
 import 'package:gemini_chatbot/providers/navigator_provider.dart';
 import 'package:gemini_chatbot/screens/botScreens/book_finder.dart';
 import 'package:gemini_chatbot/screens/botScreens/email_writer.dart';
 import 'package:gemini_chatbot/screens/botScreens/programming_solver.dart';
 import 'package:gemini_chatbot/screens/chat/image/image_search_chat_screen.dart';
-import 'package:gemini_chatbot/screens/chat/voice/voice_search_chat_screen.dart';
 import 'package:gemini_chatbot/screens/botScreens/movie_recommend.dart';
+import 'package:gemini_chatbot/secret/secret_key.dart';
+import 'package:gemini_chatbot/services/ads/ad_helper.dart';
 import 'package:gemini_chatbot/utils/common/background_image.dart';
 import 'package:gemini_chatbot/utils/widgets/bot_varients_grid.dart';
 import 'package:gemini_chatbot/utils/widgets/common_widget.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_search_containers.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_widgets.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -22,11 +23,13 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     screenSize = MediaQuery.of(context).size;
+    BannerAd homeBannerAd = AdHelper.loadBannerAd(bannerIdUnit);
 
     return SafeArea(
       child: PopScope(
         canPop: false,
         onPopInvoked: (didPop) async {
+          Provider.of<AdmobProvider>(context, listen: false).loadCloseAd();
           bool canPop = await _onWillPop(context);
           if (canPop) {
             Navigator.pop(context);
@@ -111,6 +114,7 @@ class HomeScreen extends StatelessWidget {
                       )
                     ],
                   ),
+
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15.0, 15, 15, 0),
                     child: Text(
@@ -118,7 +122,9 @@ class HomeScreen extends StatelessWidget {
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                   ),
+
                   GridView.count(
+                    primary: false,
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     padding: const EdgeInsets.all(20),
@@ -180,6 +186,12 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ],
                   ),
+                  //ADMOB AD BANNER
+                  SizedBox(
+                      width: double.infinity,
+                      height: 90,
+                      child: AdWidget(ad: homeBannerAd)),
+                  //Bottom Button
                   Center(
                     child: ElevatedButton(
                       onPressed: () {

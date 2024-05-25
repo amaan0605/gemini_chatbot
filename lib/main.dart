@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:gemini_chatbot/firebase_options.dart';
+import 'package:gemini_chatbot/providers/admob_provider.dart';
 import 'package:gemini_chatbot/providers/chat_provider.dart';
 import 'package:gemini_chatbot/providers/chip_provider.dart';
 import 'package:gemini_chatbot/providers/navigator_provider.dart';
@@ -36,6 +37,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   unawaited(MobileAds.instance.initialize());
+
   runApp(const MyApp());
 }
 
@@ -50,6 +52,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => NavigatorProvider()),
         ChangeNotifierProvider(create: (context) => SignupProvider()),
         ChangeNotifierProvider(create: (context) => ChipProvider()),
+        ChangeNotifierProvider(create: (context) => AdmobProvider()),
         ChangeNotifierProvider(create: (context) => VoiceSearchProvider())
       ],
       child: MaterialApp(

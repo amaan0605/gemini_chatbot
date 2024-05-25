@@ -1,33 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:gemini_chatbot/secret/secret_key.dart';
+import 'package:gemini_chatbot/services/ads/ad_helper.dart';
 import 'package:gemini_chatbot/utils/common/background_image.dart';
 import 'package:gemini_chatbot/utils/widgets/bot_varients_grid.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_widgets.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class BotVarientsPage extends StatefulWidget {
+class BotVarientsPage extends StatelessWidget {
   const BotVarientsPage({super.key});
 
   @override
-  State<BotVarientsPage> createState() => _BotVarientsPageState();
-}
-
-class _BotVarientsPageState extends State<BotVarientsPage> {
-  BannerAd? _bannerAd;
-  @override
-  void initState() {
-    super.initState();
-    _loadAd();
-  }
-
-  @override
-  void dispose() {
-    _bannerAd?.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    BannerAd varientBannerAd = AdHelper.loadBannerAd(varientPageBannerId);
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: appBar(context),
@@ -92,11 +76,6 @@ class _BotVarientsPageState extends State<BotVarientsPage> {
                         Navigator.pushNamed(context, '/bookScreen');
                       },
                     ),
-                    // _bannerAd == null
-                    //     // Nothing to render yet.
-                    //     ? const CircularProgressIndicator()
-                    //     // The actual ad.
-                    //     : AdWidget(ad: _bannerAd!),
                     BotVarient(
                       color: const Color(0xFFC3E2C2),
                       title: 'Play Games',
@@ -124,46 +103,9 @@ class _BotVarientsPageState extends State<BotVarientsPage> {
                 ),
               ),
             ),
-            // _bannerAd == null
-            //     // Nothing to render yet.
-            //     ? const CircularProgressIndicator()
-            //     // The actual ad.
-            //     : SizedBox(
-            //         height: 60,
-            //         width: double.infinity,
-            //         child: AdWidget(ad: _bannerAd!)),
           ],
         ),
       ),
     );
-  }
-
-  /// Loads a banner ad.
-  void _loadAd() {
-    final bannerAd = BannerAd(
-      size: AdSize.banner,
-      adUnitId: adUnit,
-      request: const AdRequest(),
-      listener: BannerAdListener(
-        // Called when an ad is successfully received.
-        onAdLoaded: (ad) {
-          if (!mounted) {
-            ad.dispose();
-            return;
-          }
-          setState(() {
-            _bannerAd = ad as BannerAd;
-          });
-        },
-        // Called when an ad request failed.
-        onAdFailedToLoad: (ad, error) {
-          debugPrint('BannerAd failed to load: $error');
-          ad.dispose();
-        },
-      ),
-    );
-
-    // Start loading.
-    bannerAd.load();
   }
 }
