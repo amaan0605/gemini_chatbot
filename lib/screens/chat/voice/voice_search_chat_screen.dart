@@ -1,11 +1,9 @@
 import 'dart:developer';
-
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gemini_chatbot/main.dart';
 import 'package:gemini_chatbot/providers/chat_provider.dart';
-import 'package:gemini_chatbot/providers/voice_search_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
@@ -49,10 +47,10 @@ class _VoiceSearchChatScreenState extends State<VoiceSearchChatScreen> {
     isGlowing = false;
     setState(() {});
 
-    //Navigate to chat screen
-    Provider.of<ChatProvider>(context, listen: false)
-        .sendChatMessage(context, searchText)
-        .then((value) => Navigator.pushNamed(context, '/chatscreen'));
+    // //Navigate to chat screen
+    // Provider.of<ChatProvider>(context, listen: false)
+    //     .sendChatMessage(context, searchText)
+    //     .then((value) => Navigator.pushNamed(context, '/chatscreen'));
   }
 
   void _onSpeechResult(SpeechRecognitionResult result) {
@@ -60,6 +58,10 @@ class _VoiceSearchChatScreenState extends State<VoiceSearchChatScreen> {
     setState(() {
       searchText = result.recognizedWords;
     });
+    //Navigate to chat screen
+    Provider.of<ChatProvider>(context, listen: false)
+        .sendChatMessage(context, searchText)
+        .then((value) => Navigator.pushNamed(context, '/chatscreen'));
   }
 
   @override
