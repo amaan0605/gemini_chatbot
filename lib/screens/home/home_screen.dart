@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gemini_chatbot/main.dart';
 import 'package:gemini_chatbot/providers/navigator_provider.dart';
 import 'package:gemini_chatbot/screens/botScreens/book_finder.dart';
@@ -9,6 +10,7 @@ import 'package:gemini_chatbot/screens/chat/voice/voice_search_chat_screen.dart'
 import 'package:gemini_chatbot/screens/botScreens/movie_recommend.dart';
 import 'package:gemini_chatbot/utils/common/background_image.dart';
 import 'package:gemini_chatbot/utils/widgets/bot_varients_grid.dart';
+import 'package:gemini_chatbot/utils/widgets/common_widget.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_search_containers.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_widgets.dart';
 import 'package:page_transition/page_transition.dart';
@@ -58,18 +60,42 @@ class HomeScreen extends StatelessWidget {
                           height: screenSize.height, width: screenSize.width),
                       Column(
                         children: [
-                          SmallSearchContainer(
-                            title: 'Voice\nSearch',
-                            color: const Color(0xFFc09ff8),
-                            svgImagePath: 'assets/images/voice_logo.svg',
-                            ontap: () {
-                              Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    child: const VoiceSearchChatScreen(),
-                                    type: PageTransitionType.rightToLeft,
-                                  ));
-                            },
+                          Stack(
+                            children: [
+                              const SmallSearchContainer(
+                                title: 'Voice\nSearch',
+                                color: Color(0xFFc09ff8),
+                                svgImagePath: 'assets/images/voice_logo.svg',
+                                // ontap: () {
+
+                                // Navigator.push(
+                                //     context,
+                                //     PageTransition(
+                                //       child: const VoiceSearchChatScreen(),
+                                //       type: PageTransitionType.rightToLeft,
+                                //     ));
+                                //},
+                              ),
+                              InkWell(
+                                onTap: () => showMyDialog(
+                                    context: context,
+                                    title: 'Coming Soon🎙️',
+                                    message:
+                                        "🗣️ Ready to chat hands-free? Our Voice Search feature is on its way! Soon, you can just talk to BotBuddy to find answers and get help. Stay tuned for the fun! 🎉"),
+                                child: Container(
+                                  margin: const EdgeInsets.all(10),
+                                  height: 120,
+                                  width: screenSize.width * .4,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.black26),
+                                  child: const Center(
+                                    child:
+                                        CircleAvatar(child: Icon(Icons.lock)),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                           SmallSearchContainer(
                             color: const Color(0xFFfec4dd),

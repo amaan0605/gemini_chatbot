@@ -124,7 +124,7 @@ class SettingsPage extends StatelessWidget {
 }
 
 Future<void> launchURL(String url) async {
-  if (!await launchUrl(Uri.parse(url), mode: LaunchMode.inAppWebView)) {
+  if (!await launchUrl(Uri.parse(url), mode: LaunchMode.inAppBrowserView)) {
     throw Exception('Could not launch');
   }
 }
