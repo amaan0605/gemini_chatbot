@@ -102,8 +102,8 @@ class SettingsPage extends StatelessWidget {
                           icon: Icons.offline_share,
                           onTap: () async {
                             await Share.share(
-                                'check out my website https://www.humraahstore.com',
-                                subject: 'Share Feature testing!');
+                                'Check out our other apps: https://play.google.com/store/apps/developer?id=THE+ETHIX+INC.',
+                                subject: 'BotBuddy: Advance AI Chatbot');
                           },
                         ),
                         const Divider(color: Colors.white24),
