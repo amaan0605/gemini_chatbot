@@ -12,6 +12,7 @@ class BotVarientsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BannerAd varientBannerAd = AdHelper.loadBannerAd(varientPageBannerId);
+    BannerAd varientBannerAd2 = AdHelper.loadBannerAd(varientPageBannerId2);
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: appBar(context),
@@ -99,6 +100,15 @@ class BotVarientsPage extends StatelessWidget {
                       onTap: () =>
                           Navigator.pushNamed(context, '/articleScreen'),
                     ),
+                    //ADMOB AD BANNER
+                    SizedBox(
+                        width: 300,
+                        height: 300,
+                        child: AdWidget(ad: varientBannerAd)),
+                    SizedBox(
+                        width: 300,
+                        height: 300,
+                        child: AdWidget(ad: varientBannerAd2)),
                   ],
                 ),
               ),

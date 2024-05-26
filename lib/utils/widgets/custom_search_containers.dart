@@ -76,21 +76,17 @@ class LargeSearchContainer extends StatelessWidget {
     super.key,
     required this.height,
     required this.width,
+    required this.onTap,
   });
 
   final double height;
   final double width;
+  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () {
-          Navigator.push(
-              context,
-              PageTransition(
-                  child: const ChatScreen(),
-                  type: PageTransitionType.rightToLeft));
-        },
+        onTap: onTap,
         child: Container(
           margin: const EdgeInsets.all(10),
           height: height * 0.30,

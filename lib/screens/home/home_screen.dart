@@ -7,6 +7,7 @@ import 'package:gemini_chatbot/screens/botScreens/email_writer.dart';
 import 'package:gemini_chatbot/screens/botScreens/programming_solver.dart';
 import 'package:gemini_chatbot/screens/chat/image/image_search_chat_screen.dart';
 import 'package:gemini_chatbot/screens/botScreens/movie_recommend.dart';
+import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
 import 'package:gemini_chatbot/secret/secret_key.dart';
 import 'package:gemini_chatbot/services/ads/ad_helper.dart';
 import 'package:gemini_chatbot/utils/common/background_image.dart';
@@ -15,14 +16,34 @@ import 'package:gemini_chatbot/utils/widgets/common_widget.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_search_containers.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_widgets.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  AdHelper adHelper = AdHelper();
+  @override
+  void initState() {
+    super.initState();
+    adHelper.loadInterstitialAd(imageInterstitialId);
+  }
+
+  @override
+  void dispose() {
+    adHelper.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     screenSize = MediaQuery.of(context).size;
+
     BannerAd homeBannerAd = AdHelper.loadBannerAd(bannerIdUnit);
 
     return SafeArea(
@@ -60,7 +81,17 @@ class HomeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       LargeSearchContainer(
-                          height: screenSize.height, width: screenSize.width),
+                        height: screenSize.height,
+                        width: screenSize.width,
+                        onTap: () {
+                          adHelper.showInterstitialAd();
+                          Navigator.push(
+                              context,
+                              PageTransition(
+                                  child: const ChatScreen(),
+                                  type: PageTransitionType.rightToLeft));
+                        },
+                      ),
                       Column(
                         children: [
                           Stack(
@@ -105,6 +136,7 @@ class HomeScreen extends StatelessWidget {
                             svgImagePath: 'assets/images/image_logo.svg',
                             title: "Search\nby Image",
                             ontap: () {
+                              adHelper.showInterstitialAd();
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
                                       const ImageSearchChatScreen()));
