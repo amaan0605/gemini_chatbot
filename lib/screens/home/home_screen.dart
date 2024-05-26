@@ -28,9 +28,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   AdHelper adHelper = AdHelper();
+  BannerAd? homeBannerAd;
   @override
   void initState() {
     super.initState();
+    homeBannerAd = AdHelper.loadBannerAd(bannerIdUnit);
     adHelper.loadInterstitialAd(imageInterstitialId);
   }
 
@@ -43,8 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     screenSize = MediaQuery.of(context).size;
-
-    BannerAd homeBannerAd = AdHelper.loadBannerAd(bannerIdUnit);
 
     return SafeArea(
       child: PopScope(
@@ -219,10 +219,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   //ADMOB AD BANNER
-                  SizedBox(
-                      width: double.infinity,
-                      height: 90,
-                      child: AdWidget(ad: homeBannerAd)),
+                  homeBannerAd != null
+                      ? SizedBox(
+                          width: double.infinity,
+                          height: 90,
+                          child: AdWidget(ad: homeBannerAd!))
+                      : const SizedBox(),
                   //Bottom Button
                   Center(
                     child: ElevatedButton(

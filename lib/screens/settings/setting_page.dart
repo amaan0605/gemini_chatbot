@@ -102,7 +102,7 @@ class SettingsPage extends StatelessWidget {
                           icon: Icons.offline_share,
                           onTap: () async {
                             await Share.share(
-                                'Check out our other apps: https://play.google.com/store/apps/developer?id=THE+ETHIX+INC.',
+                                'Check out our other apps:\n https://play.google.com/store/apps/details?id=com.ethix.mirage',
                                 subject: 'BotBuddy: Advance AI Chatbot');
                           },
                         ),

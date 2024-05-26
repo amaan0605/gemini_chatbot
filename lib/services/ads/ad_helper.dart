@@ -3,6 +3,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AdHelper {
   InterstitialAd? _interstitialAd;
+  BannerAd? bannerAd;
   bool _isInterstitialAdReady = false;
   //Banner Ad
   static BannerAd loadBannerAd(String adUnitId) {
