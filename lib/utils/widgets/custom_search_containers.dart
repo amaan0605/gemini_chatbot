@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gemini_chatbot/main.dart';
-import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
-import 'package:page_transition/page_transition.dart';
 
 class SmallSearchContainer extends StatelessWidget {
   const SmallSearchContainer({

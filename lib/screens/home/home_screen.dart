@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gemini_chatbot/main.dart';
 import 'package:gemini_chatbot/providers/admob_provider.dart';
 import 'package:gemini_chatbot/providers/navigator_provider.dart';
@@ -32,8 +33,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    homeBannerAd = AdHelper.loadBannerAd(bannerIdUnit);
+    loadhomeAd();
+    //homeBannerAd = AdHelper.loadBannerAd(bannerIdUnit, AdSize.leaderboard);
     adHelper.loadInterstitialAd(imageInterstitialId);
+  }
+
+  loadhomeAd() {
+    Provider.of<AdmobProvider>(context, listen: false)
+        .loadBannerAd(bannerIdUnit);
   }
 
   @override
@@ -50,10 +57,10 @@ class _HomeScreenState extends State<HomeScreen> {
       child: PopScope(
         canPop: false,
         onPopInvoked: (didPop) async {
-          Provider.of<AdmobProvider>(context, listen: false).loadCloseAd();
+          // Provider.of<AdmobProvider>(context, listen: false).loadCloseAd();
           bool canPop = await _onWillPop(context);
           if (canPop) {
-            Navigator.pop(context);
+            Navigator.of(context).pop();
           } else {
             return;
           }
@@ -219,12 +226,24 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   //ADMOB AD BANNER
-                  homeBannerAd != null
+                  Provider.of<AdmobProvider>(context, listen: false)
+                          .loadingBannerAd
                       ? SizedBox(
-                          width: double.infinity,
-                          height: 90,
-                          child: AdWidget(ad: homeBannerAd!))
+                          width: 300,
+                          height: 200,
+                          child: AdWidget(
+                              ad: Provider.of<AdmobProvider>(context,
+                                      listen: false)
+                                  .bannerAd!))
                       : const SizedBox(),
+                  // homeBannerAd != null
+                  //     ? SizedBox(
+                  //         width: homeBannerAd!.size.width
+                  //             .toDouble(), //double.infinity,
+                  //         height: homeBannerAd!.size.height.toDouble(),
+                  //         child: AdWidget(ad: homeBannerAd!))
+                  //     : const SizedBox(),
+
                   //Bottom Button
                   Center(
                     child: ElevatedButton(
@@ -253,12 +272,17 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 Future<bool> _onWillPop(BuildContext context) async {
+  BannerAd? alertBanner =
+      AdHelper.loadBannerAd(alertBannerId, AdSize.mediumRectangle);
   return await showDialog(
         context: context,
         barrierDismissible: false, // Prevent dismiss on tap outside
         builder: (context) => AlertDialog(
           title: const Text("Exit"),
-          content: const Text("Do you want to exit?"),
+          content: Expanded(
+            child: SizedBox(
+                height: 250, width: 300, child: AdWidget(ad: alertBanner)),
+          ),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context)

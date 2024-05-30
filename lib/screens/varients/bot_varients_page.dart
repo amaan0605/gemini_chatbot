@@ -11,8 +11,10 @@ class BotVarientsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BannerAd varientBannerAd = AdHelper.loadBannerAd(varientPageBannerId);
-    BannerAd varientBannerAd2 = AdHelper.loadBannerAd(varientPageBannerId2);
+    BannerAd varientBannerAd =
+        AdHelper.loadBannerAd(varientPageBannerId, AdSize.fluid);
+    BannerAd varientBannerAd2 =
+        AdHelper.loadBannerAd(varientPageBannerId2, AdSize.fluid);
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: appBar(context),

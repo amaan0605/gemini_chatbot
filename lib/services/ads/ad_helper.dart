@@ -5,11 +5,12 @@ class AdHelper {
   InterstitialAd? _interstitialAd;
   BannerAd? bannerAd;
   bool _isInterstitialAdReady = false;
+
   //Banner Ad
-  static BannerAd loadBannerAd(String adUnitId) {
+  static BannerAd loadBannerAd(String adUnitId, AdSize size) {
     BannerAd bannerAd = BannerAd(
       adUnitId: adUnitId,
-      size: AdSize.mediumRectangle,
+      size: size,
       request: const AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (_) {
