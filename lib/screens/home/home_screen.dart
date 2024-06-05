@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gemini_chatbot/main.dart';
 import 'package:gemini_chatbot/providers/admob_provider.dart';
 import 'package:gemini_chatbot/providers/navigator_provider.dart';
@@ -229,8 +228,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   Provider.of<AdmobProvider>(context, listen: false)
                           .loadingBannerAd
                       ? SizedBox(
-                          width: 300,
-                          height: 200,
+                          width: double.infinity,
+                          height: 100,
                           child: AdWidget(
                               ad: Provider.of<AdmobProvider>(context,
                                       listen: false)

@@ -78,8 +78,8 @@ class AdmobProvider extends ChangeNotifier {
   }
 
   //Dispose ad units
-  // void disposeAd() {
-  //   _bannerAd?.dispose();
-  //   _bannerAd = null;
-  // }
+  void disposeAd() {
+    bannerAd?.dispose();
+    bannerAd = null;
+  }
 }
