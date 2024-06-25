@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:gemini_chatbot/main.dart';
 import 'package:gemini_chatbot/providers/admob_provider.dart';
 import 'package:gemini_chatbot/providers/navigator_provider.dart';
-import 'package:gemini_chatbot/screens/botScreens/book_finder.dart';
-import 'package:gemini_chatbot/screens/botScreens/email_writer.dart';
-import 'package:gemini_chatbot/screens/botScreens/programming_solver.dart';
+import 'package:gemini_chatbot/screens/bot_screens/book_finder.dart';
+import 'package:gemini_chatbot/screens/bot_screens/email_writer.dart';
+import 'package:gemini_chatbot/screens/bot_screens/programming_solver.dart';
 import 'package:gemini_chatbot/screens/chat/image/image_search_chat_screen.dart';
-import 'package:gemini_chatbot/screens/botScreens/movie_recommend.dart';
+import 'package:gemini_chatbot/screens/bot_screens/movie_recommend.dart';
 import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
 import 'package:gemini_chatbot/secret/secret_key.dart';
 import 'package:gemini_chatbot/services/ads/ad_helper.dart';
@@ -27,26 +27,26 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  AdHelper adHelper = AdHelper();
-  BannerAd? homeBannerAd;
-  @override
-  void initState() {
-    super.initState();
-    loadhomeAd();
-    //homeBannerAd = AdHelper.loadBannerAd(bannerIdUnit, AdSize.leaderboard);
-    adHelper.loadInterstitialAd(imageInterstitialId);
-  }
+  // AdHelper adHelper = AdHelper();
+  // BannerAd? homeBannerAd;
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   loadhomeAd();
+  //   //homeBannerAd = AdHelper.loadBannerAd(bannerIdUnit, AdSize.leaderboard);
+  //   adHelper.loadInterstitialAd(imageInterstitialId);
+  // }
 
-  loadhomeAd() {
-    Provider.of<AdmobProvider>(context, listen: false)
-        .loadBannerAd(bannerIdUnit);
-  }
+  // loadhomeAd() {
+  //   Provider.of<AdmobProvider>(context, listen: false)
+  //       .loadBannerAd(bannerIdUnit);
+  // }
 
-  @override
-  void dispose() {
-    adHelper.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   adHelper.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: screenSize.height,
                         width: screenSize.width,
                         onTap: () {
-                          adHelper.showInterstitialAd();
+                          // adHelper.showInterstitialAd();
                           Navigator.push(
                               context,
                               PageTransition(
@@ -142,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             svgImagePath: 'assets/images/image_logo.svg',
                             title: "Search\nby Image",
                             ontap: () {
-                              adHelper.showInterstitialAd();
+                              // adHelper.showInterstitialAd();
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
                                       const ImageSearchChatScreen()));
@@ -225,16 +225,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   //ADMOB AD BANNER
-                  Provider.of<AdmobProvider>(context, listen: false)
-                          .loadingBannerAd
-                      ? SizedBox(
-                          width: double.infinity,
-                          height: 100,
-                          child: AdWidget(
-                              ad: Provider.of<AdmobProvider>(context,
-                                      listen: false)
-                                  .bannerAd!))
-                      : const SizedBox(),
+                  // Provider.of<AdmobProvider>(context, listen: false)
+                  //         .loadingBannerAd
+                  //     ? SizedBox(
+                  //         width: double.infinity,
+                  //         height: 100,
+                  //         child: AdWidget(
+                  //             ad: Provider.of<AdmobProvider>(context,
+                  //                     listen: false)
+                  //                 .bannerAd!))
+                  //     : const SizedBox(),
                   // homeBannerAd != null
                   //     ? SizedBox(
                   //         width: homeBannerAd!.size.width
@@ -271,17 +271,17 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 Future<bool> _onWillPop(BuildContext context) async {
-  BannerAd? alertBanner =
-      AdHelper.loadBannerAd(alertBannerId, AdSize.mediumRectangle);
+  // BannerAd? alertBanner =
+  //     AdHelper.loadBannerAd(alertBannerId, AdSize.mediumRectangle);
   return await showDialog(
         context: context,
         barrierDismissible: false, // Prevent dismiss on tap outside
         builder: (context) => AlertDialog(
           title: const Text("Exit"),
-          content: Expanded(
-            child: SizedBox(
-                height: 250, width: 300, child: AdWidget(ad: alertBanner)),
-          ),
+          // content: Expanded(
+          //   child: SizedBox(
+          //       height: 250, width: 300, child: AdWidget(ad: alertBanner)),
+          // ),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context)

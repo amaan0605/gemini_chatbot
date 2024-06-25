@@ -11,10 +11,10 @@ class BotVarientsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BannerAd varientBannerAd =
-        AdHelper.loadBannerAd(varientPageBannerId, AdSize.largeBanner);
-    BannerAd varientBannerAd2 =
-        AdHelper.loadBannerAd(varientPageBannerId2, AdSize.fluid);
+    // BannerAd varientBannerAd =
+    //     AdHelper.loadBannerAd(varientPageBannerId, AdSize.largeBanner);
+    // BannerAd varientBannerAd2 =
+    //     AdHelper.loadBannerAd(varientPageBannerId2, AdSize.fluid);
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: appBar(context),
@@ -111,12 +111,12 @@ class BotVarientsPage extends StatelessWidget {
               ),
             ),
             //ADMOB AD BANNER
-            SizedBox(
-                width: double.infinity,
-                height: 100,
-                child: AdWidget(ad: varientBannerAd)),
+            // SizedBox(
+            //     width: double.infinity,
+            //     height: 100,
+            //     child: AdWidget(ad: varientBannerAd)),
             const SizedBox(
-              height: 40,
+              height: 70,
             )
           ],
         ),

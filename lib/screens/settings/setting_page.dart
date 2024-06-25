@@ -17,8 +17,8 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BannerAd? settingBanner =
-        AdHelper.loadBannerAd(alertBannerId, AdSize.largeBanner);
+    // BannerAd? settingBanner =
+    //     AdHelper.loadBannerAd(alertBannerId, AdSize.largeBanner);
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: appBar(context),
@@ -71,11 +71,11 @@ class SettingsPage extends StatelessWidget {
                     ),
                   )),
               const SizedBox(height: 20),
-              SizedBox(
-                  height: settingBanner.size.height.toDouble(),
-                  width: settingBanner.size.width.toDouble(),
-                  child: AdWidget(ad: settingBanner)),
-              const SizedBox(height: 20),
+              // SizedBox(
+              //     height: settingBanner.size.height.toDouble(),
+              //     width: settingBanner.size.width.toDouble(),
+              //     child: AdWidget(ad: settingBanner)),
+              // const SizedBox(height: 20),
 
               //Other Settings
               FrostedGlassBox(
