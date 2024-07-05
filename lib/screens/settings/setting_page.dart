@@ -52,7 +52,7 @@ class SettingsPage extends StatelessWidget {
                           onTap: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
+                                   builder: (context) =>
                                       const ChangePasswordScreen())),
                         ),
                         const Divider(color: Colors.white24),
