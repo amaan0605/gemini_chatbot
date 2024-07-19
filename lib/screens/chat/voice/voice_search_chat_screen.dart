@@ -17,7 +17,7 @@ class VoiceSearchChatScreen extends StatefulWidget {
 
 class _VoiceSearchChatScreenState extends State<VoiceSearchChatScreen> {
   String searchText = 'Press button to search';
-  SpeechToText _speechToText = SpeechToText();
+  final SpeechToText _speechToText = SpeechToText();
   bool isAvailable = false;
   bool isGlowing = false;
 
@@ -36,21 +36,23 @@ class _VoiceSearchChatScreenState extends State<VoiceSearchChatScreen> {
   void _startListening() async {
     isGlowing = true;
     setState(() {});
-    log('startlisting');
+    log('startlisting\n');
+    log("before: $searchText");
     await _speechToText.listen(onResult: _onSpeechResult);
+    log("After: $searchText");
     setState(() {});
   }
 
   void _stopListening() async {
-    log("Stopppppppp");
+    log("Stopppppppp: $searchText");
     await _speechToText.stop();
     isGlowing = false;
     setState(() {});
 
-    // //Navigate to chat screen
-    // Provider.of<ChatProvider>(context, listen: false)
-    //     .sendChatMessage(context, searchText)
-    //     .then((value) => Navigator.pushNamed(context, '/chatscreen'));
+    //Navigate to chat screen
+    Provider.of<ChatProvider>(context, listen: false)
+        .sendChatMessage(context, searchText)
+        .then((value) => Navigator.pushNamed(context, '/chatscreen'));
   }
 
   void _onSpeechResult(SpeechRecognitionResult result) {
@@ -59,9 +61,9 @@ class _VoiceSearchChatScreenState extends State<VoiceSearchChatScreen> {
       searchText = result.recognizedWords;
     });
     //Navigate to chat screen
-    Provider.of<ChatProvider>(context, listen: false)
-        .sendChatMessage(context, searchText)
-        .then((value) => Navigator.pushNamed(context, '/chatscreen'));
+    // Provider.of<ChatProvider>(context, listen: false)
+    //     .sendChatMessage(context, searchText)
+    //     .then((value) => Navigator.pushNamed(context, '/chatscreen'));
   }
 
   @override

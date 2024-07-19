@@ -8,6 +8,7 @@ import 'package:gemini_chatbot/screens/bot_screens/programming_solver.dart';
 import 'package:gemini_chatbot/screens/chat/image/image_search_chat_screen.dart';
 import 'package:gemini_chatbot/screens/bot_screens/movie_recommend.dart';
 import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
+import 'package:gemini_chatbot/screens/chat/voice/voice_search_chat_screen.dart';
 import 'package:gemini_chatbot/secret/secret_key.dart';
 import 'package:gemini_chatbot/services/ads/ad_helper.dart';
 import 'package:gemini_chatbot/utils/common/background_image.dart';
@@ -102,39 +103,38 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           Stack(
                             children: [
-                              const SmallSearchContainer(
+                              SmallSearchContainer(
                                 title: 'Voice\nSearch',
                                 color: Color(0xFFc09ff8),
                                 svgImagePath: 'assets/images/voice_logo.svg',
-                                // ontap: () {
-
-                                // Navigator.push(
-                                //     context,
-                                //     PageTransition(
-                                //       child: const VoiceSearchChatScreen(),
-                                //       type: PageTransitionType.rightToLeft,
-                                //     ));
-                                //},
+                                ontap: () {
+                                  Navigator.push(
+                                      context,
+                                      PageTransition(
+                                        child: const VoiceSearchChatScreen(),
+                                        type: PageTransitionType.rightToLeft,
+                                      ));
+                                },
                               ),
-                              InkWell(
-                                onTap: () => showMyDialog(
-                                    context: context,
-                                    title: 'Coming Soon🎙️',
-                                    message:
-                                        "🗣️ Ready to chat hands-free? Our Voice Search feature is on its way! Soon, you can just talk to BotBuddy to find answers and get help. Stay tuned for the fun! 🎉"),
-                                child: Container(
-                                  margin: const EdgeInsets.all(10),
-                                  height: 120,
-                                  width: screenSize.width * .4,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: Colors.black26),
-                                  child: const Center(
-                                    child:
-                                        CircleAvatar(child: Icon(Icons.lock)),
-                                  ),
-                                ),
-                              ),
+                              // InkWell(
+                              //   onTap: () => showMyDialog(
+                              //       context: context,
+                              //       title: 'Coming Soon🎙️',
+                              //       message:
+                              //           "🗣️ Ready to chat hands-free? Our Voice Search feature is on its way! Soon, you can just talk to BotBuddy to find answers and get help. Stay tuned for the fun! 🎉"),
+                              //   child: Container(
+                              //     margin: const EdgeInsets.all(10),
+                              //     height: 120,
+                              //     width: screenSize.width * .4,
+                              //     decoration: BoxDecoration(
+                              //         borderRadius: BorderRadius.circular(20),
+                              //         color: Colors.black26),
+                              //     child: const Center(
+                              //       child:
+                              //           CircleAvatar(child: Icon(Icons.lock)),
+                              //     ),
+                              //   ),
+                              // ),
                             ],
                           ),
                           SmallSearchContainer(
