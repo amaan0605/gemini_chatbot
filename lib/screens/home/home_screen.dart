@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: PopScope(
         canPop: false,
         onPopInvoked: (popDisposition) async {
-          bool exitApp = await showExitDialog(context);
+          await showExitDialog(context);
           return;
         },
         child: Scaffold(
@@ -266,8 +266,8 @@ Future<bool> showExitDialog(BuildContext context) {
     context: context,
     builder: (context) {
       return AlertDialog(
-        title: Text('Exit App'),
-        content: Text(
+        title: const Text('Exit App'),
+        content: const Text(
           'Do you want to exit the app?',
           style: TextStyle(color: Colors.white),
         ),
@@ -276,13 +276,13 @@ Future<bool> showExitDialog(BuildContext context) {
             onPressed: () {
               Navigator.of(context).pop(false);
             },
-            child: Text('No'),
+            child: const Text('No'),
           ),
           TextButton(
             onPressed: () {
               SystemNavigator.pop();
             },
-            child: Text('Yes'),
+            child: const Text('Yes'),
           ),
         ],
       );
