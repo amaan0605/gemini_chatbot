@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gemini_chatbot/main.dart';
-import 'package:gemini_chatbot/providers/admob_provider.dart';
 import 'package:gemini_chatbot/providers/navigator_provider.dart';
 import 'package:gemini_chatbot/screens/bot_screens/book_finder.dart';
 import 'package:gemini_chatbot/screens/bot_screens/email_writer.dart';
@@ -9,14 +9,10 @@ import 'package:gemini_chatbot/screens/chat/image/image_search_chat_screen.dart'
 import 'package:gemini_chatbot/screens/bot_screens/movie_recommend.dart';
 import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
 import 'package:gemini_chatbot/screens/chat/voice/voice_search_chat_screen.dart';
-import 'package:gemini_chatbot/secret/secret_key.dart';
-import 'package:gemini_chatbot/services/ads/ad_helper.dart';
 import 'package:gemini_chatbot/utils/common/background_image.dart';
 import 'package:gemini_chatbot/utils/widgets/bot_varients_grid.dart';
-import 'package:gemini_chatbot/utils/widgets/common_widget.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_search_containers.dart';
 import 'package:gemini_chatbot/utils/widgets/custom_widgets.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
@@ -56,14 +52,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: PopScope(
         canPop: false,
-        onPopInvoked: (didPop) async {
-          // Provider.of<AdmobProvider>(context, listen: false).loadCloseAd();
-          bool canPop = await _onWillPop(context);
-          if (canPop) {
-            Navigator.of(context).pop();
-          } else {
-            return;
-          }
+        onPopInvoked: (popDisposition) async {
+          bool exitApp = await showExitDialog(context);
+          return;
         },
         child: Scaffold(
           extendBodyBehindAppBar: true,
@@ -270,45 +261,79 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-Future<bool> _onWillPop(BuildContext context) async {
-  // BannerAd? alertBanner =
-  //     AdHelper.loadBannerAd(alertBannerId, AdSize.mediumRectangle);
-  return await showDialog(
-        context: context,
-        barrierDismissible: false, // Prevent dismiss on tap outside
-        builder: (context) => AlertDialog(
-          title: const Text("Exit"),
-          // content: Expanded(
-          //   child: SizedBox(
-          //       height: 250, width: 300, child: AdWidget(ad: alertBanner)),
-          // ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.of(context)
-                  .pop(true), // Return true to pop the route
-              child: const Text(
-                "Yes",
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            TextButton(
-              onPressed: () => Navigator.of(context)
-                  .pop(false), // Return false to stay on the route
-              child: const Text(
-                "No",
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
+Future<bool> showExitDialog(BuildContext context) {
+  return showDialog<bool>(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: Text('Exit App'),
+        content: Text(
+          'Do you want to exit the app?',
+          style: TextStyle(color: Colors.white),
         ),
-      ) ??
-      false; // Handle null case by returning false (stay on the route)
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(false);
+            },
+            child: Text('No'),
+          ),
+          TextButton(
+            onPressed: () {
+              SystemNavigator.pop();
+            },
+            child: Text('Yes'),
+          ),
+        ],
+      );
+    },
+  ).then((value) => value ?? false);
 }
+
+
+// Future<bool> _onWillPop(BuildContext context) async {
+//   // BannerAd? alertBanner =
+//   //     AdHelper.loadBannerAd(alertBannerId, AdSize.mediumRectangle);
+//   return await showDialog(
+//         context: context,
+//         barrierDismissible: false, // Prevent dismiss on tap outside
+//         builder: (context) => AlertDialog(
+//           title: const Text("Exit"),
+//           content: const Text(
+//             'Are you sure?',
+//             style: TextStyle(color: Colors.white),
+//           ),
+//           // content: Expanded(
+//           //   child: SizedBox(
+//           //       height: 250, width: 300, child: AdWidget(ad: alertBanner)),
+//           // ),
+//           actions: <Widget>[
+//             TextButton(
+//               onPressed: () => Navigator.of(context)
+//                   .pop(true), // Return true to pop the route
+//               child: const Text(
+//                 "Yes",
+//                 style: TextStyle(
+//                   color: Colors.blue,
+//                   fontSize: 18,
+//                   fontWeight: FontWeight.bold,
+//                 ),
+//               ),
+//             ),
+//             TextButton(
+//               onPressed: () => Navigator.of(context)
+//                   .pop(false), // Return false to stay on the route
+//               child: const Text(
+//                 "No",
+//                 style: TextStyle(
+//                   color: Colors.blue,
+//                   fontSize: 18,
+//                   fontWeight: FontWeight.bold,
+//                 ),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ) ??
+//       false; // Handle null case by returning false (stay on the route)
+// }
