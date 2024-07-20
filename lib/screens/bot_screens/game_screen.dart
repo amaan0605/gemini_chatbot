@@ -39,44 +39,46 @@ class _GameScreenState extends State<GameScreen> {
       appBar: AppBar(
         title: const Text('Play Game with me'),
       ),
-      body: backgroundContainer(
-          padding: 10,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                FrostedGlassBox(
-                  height: screenSize.height * .2,
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      "Who's the Champ? Play Games & See Who Reigns Supreme with BotBuddy!👾🎮",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
-                      textAlign: TextAlign.center,
+      body: SingleChildScrollView(
+        child: backgroundContainer(
+            height: screenSize.height,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FrostedGlassBox(
+                    height: screenSize.height * .2,
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        "Who's the Champ? Play Games & See Who Reigns Supreme with BotBuddy!👾🎮",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w900),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 30),
-                const MyHeadingText(heading: 'G A M E    T Y P E'),
-                const Divider(),
-                MyCustomChips(
-                  list: myGameList,
-                  chipName: 'game',
-                ),
-                const SizedBox(height: 30),
-                const MyHeadingText(heading: 'A N Y   O T H E R'),
-                CustomTextField(
-                  controller: _infoController,
-                  hintText: 'Type of game you want to play...',
-                ),
-                const SizedBox(
-                  height: 20,
-                )
-              ],
-            ),
-          )),
+                  const SizedBox(height: 30),
+                  const MyHeadingText(heading: 'G A M E    T Y P E'),
+                  const Divider(),
+                  MyCustomChips(
+                    list: myGameList,
+                    chipName: 'game',
+                  ),
+                  const SizedBox(height: 30),
+                  const MyHeadingText(heading: 'A N Y   O T H E R'),
+                  CustomTextField(
+                    controller: _infoController,
+                    hintText: 'Type of game you want to play...',
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  )
+                ],
+              ),
+            )),
+      ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.all(20.0),
         child: myFloatingActionButton(onTap: () async {

@@ -105,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               SmallSearchContainer(
                                 title: 'Voice\nSearch',
-                                color: Color(0xFFc09ff8),
+                                color: const Color(0xFFc09ff8),
                                 svgImagePath: 'assets/images/voice_logo.svg',
                                 ontap: () {
                                   Navigator.push(

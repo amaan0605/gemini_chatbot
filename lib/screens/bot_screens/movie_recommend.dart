@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gemini_chatbot/main.dart';
 import 'package:gemini_chatbot/providers/chip_provider.dart';
 import 'package:gemini_chatbot/providers/chat_provider.dart';
-import 'package:gemini_chatbot/screens/chat/text/chat_screen.dart';
 import 'package:gemini_chatbot/utils/common/background_image.dart';
 import 'package:gemini_chatbot/utils/common/constants.dart';
 import 'package:gemini_chatbot/utils/common/frosted_glass_box.dart';
