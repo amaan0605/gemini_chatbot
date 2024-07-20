@@ -22,7 +22,8 @@ AppBar appBar(BuildContext context) {
     actions: [
       InkWell(
           onTap: () {
-            Provider.of<NavigatorProvider>(context, listen: false).setIndex(2);
+            Navigator.pushNamed(context, '/chatscreen');
+            //Provider.of<NavigatorProvider>(context, listen: false).setIndex(2);
           },
           child: SvgPicture.asset(
             'assets/images/Bot.svg',
