@@ -6,7 +6,7 @@ import 'package:gemini_chatbot/main.dart';
 import 'package:gemini_chatbot/providers/chat_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
-import 'package:speech_to_text/speech_to_text.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class VoiceSearchChatScreen extends StatefulWidget {
   const VoiceSearchChatScreen({super.key});
@@ -16,55 +16,85 @@ class VoiceSearchChatScreen extends StatefulWidget {
 }
 
 class _VoiceSearchChatScreenState extends State<VoiceSearchChatScreen> {
-  String searchText = 'Press button to search';
-  final SpeechToText _speechToText = SpeechToText();
-  bool isAvailable = false;
-  bool isGlowing = false;
+  late stt.SpeechToText _speech;
+  bool _isListening = false;
+  String _text = "Press the button and start speaking";
 
   @override
   void initState() {
     super.initState();
-    _initSpeech();
+    _speech = stt.SpeechToText();
   }
 
-  void _initSpeech() async {
-    isAvailable = await _speechToText.initialize();
-    setState(() {});
+  Future<void> _listen() async {
+    if (!_isListening) {
+      bool available = await _speech.initialize(
+        onStatus: (val) => print('onStatus: $val'),
+        onError: (val) => print('onError: $val'),
+      );
+      if (available) {
+        setState(() => _isListening = true);
+        _speech.listen(
+          onResult: (val) => setState(() {
+            _text = val.recognizedWords;
+            // Send _text to your chatbot API
+          }),
+        );
+      }
+    } else {
+      setState(() => _isListening = false);
+      _speech.stop();
+    }
   }
+  // String searchText = 'Press button to search';
+  // final SpeechToText _speechToText = SpeechToText();
+  // bool isAvailable = false;
+  // bool isGlowing = false;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _initSpeech();
+  // }
+
+  // void _initSpeech() async {
+  //   isAvailable = await _speechToText.initialize();
+  //   setState(() {});
+  // }
 
   /// Each time to start a speech recognition session
-  void _startListening() async {
-    isGlowing = true;
-    setState(() {});
-    log('startlisting\n');
-    log("before: $searchText");
-    await _speechToText.listen(onResult: _onSpeechResult);
-    log("After: $searchText");
-    setState(() {});
-  }
+  // void _startListening() async {
+  //   isGlowing = true;
+  //   setState(() {});
+  //   log('startlisting\n');
+  //   log("before: $searchText");
+  //   await _speechToText.listen(onResult: _onSpeechResult);
+  //   log("After: $searchText");
+  //   setState(() {});
+  // }
 
-  void _stopListening() async {
-    log("Stopppppppp: $searchText");
-    await _speechToText.stop();
-    isGlowing = false;
-    setState(() {});
+  // void _stopListening() async {
+  //   log("Stopppppppp: $searchText");
+  //   await _speechToText.stop();
+  //   isGlowing = false;
+  //   setState(() {});
 
-    //Navigate to chat screen
-    Provider.of<ChatProvider>(context, listen: false)
-        .sendChatMessage(context, searchText)
-        .then((value) => Navigator.pushNamed(context, '/chatscreen'));
-  }
+  // //Navigate to chat screen
+  // Provider.of<ChatProvider>(context, listen: false)
+  //     .sendChatMessage(context, searchText)
+  //     .then((value) => Navigator.pushNamed(context, '/chatscreen'));
+  // }
 
-  void _onSpeechResult(SpeechRecognitionResult result) {
-    log("Resulllltttttt\n\n\n");
-    setState(() {
-      searchText = result.recognizedWords;
-    });
-    //Navigate to chat screen
-    // Provider.of<ChatProvider>(context, listen: false)
-    //     .sendChatMessage(context, searchText)
-    //     .then((value) => Navigator.pushNamed(context, '/chatscreen'));
-  }
+  // void _onSpeechResult(SpeechRecognitionResult result) {
+  //   log("Resulllltttttt\n\n\n");
+  //   setState(() {
+  //     searchText = result.recognizedWords;
+  //   });
+  //   //Navigate to chat screen
+  //   // Provider.of<ChatProvider>(context, listen: false)
+  //   //     .sendChatMessage(context, searchText)
+  //   //     .then((value) => Navigator.pushNamed(context, '/chatscreen'));
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -79,12 +109,22 @@ class _VoiceSearchChatScreenState extends State<VoiceSearchChatScreen> {
         floatingActionButton: Container(
           padding: EdgeInsets.only(bottom: screenSize.height * .09),
           child: InkWell(
-            onTap: () {
-              _speechToText.isNotListening
-                  ? _startListening()
-                  : _stopListening();
+            onTap: () async {
+              await _listen();
+              //Navigate to chat screen
+              if (!_isListening) {
+                Provider.of<ChatProvider>(context, listen: false)
+                    .sendChatMessage(context, _text);
+                await Navigator.pushNamed(context, '/chatscreen');
+                // .then(
+                //     (value) => Navigator.pushNamed(context, '/chatscreen'));
+              }
+
+              // _speechToText.isNotListening
+              //     ? _startListening()
+              //     : _stopListening();
             },
-            child: isGlowing
+            child: _isListening
                 ? AvatarGlow(
                     child: CircleAvatar(
                         backgroundColor: Colors.black38,
@@ -117,7 +157,7 @@ class _VoiceSearchChatScreenState extends State<VoiceSearchChatScreen> {
             children: [
               Center(
                 child: Text(
-                  "How can i help you?",
+                  _text, // "How can i help you?",
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
               ),
