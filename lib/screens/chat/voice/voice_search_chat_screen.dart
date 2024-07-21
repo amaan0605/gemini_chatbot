@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gemini_chatbot/main.dart';
 import 'package:gemini_chatbot/providers/chat_provider.dart';
+import 'package:gemini_chatbot/utils/common/frosted_glass_box.dart';
 import 'package:provider/provider.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
@@ -44,55 +45,6 @@ class _VoiceSearchChatScreenState extends State<VoiceSearchChatScreen> {
       _speech.stop();
     }
   }
-  // String searchText = 'Press button to search';
-  // final SpeechToText _speechToText = SpeechToText();
-  // bool isAvailable = false;
-  // bool isGlowing = false;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _initSpeech();
-  // }
-
-  // void _initSpeech() async {
-  //   isAvailable = await _speechToText.initialize();
-  //   setState(() {});
-  // }
-
-  /// Each time to start a speech recognition session
-  // void _startListening() async {
-  //   isGlowing = true;
-  //   setState(() {});
-  //   log('startlisting\n');
-  //   log("before: $searchText");
-  //   await _speechToText.listen(onResult: _onSpeechResult);
-  //   log("After: $searchText");
-  //   setState(() {});
-  // }
-
-  // void _stopListening() async {
-  //   log("Stopppppppp: $searchText");
-  //   await _speechToText.stop();
-  //   isGlowing = false;
-  //   setState(() {});
-
-  // //Navigate to chat screen
-  // Provider.of<ChatProvider>(context, listen: false)
-  //     .sendChatMessage(context, searchText)
-  //     .then((value) => Navigator.pushNamed(context, '/chatscreen'));
-  // }
-
-  // void _onSpeechResult(SpeechRecognitionResult result) {
-  //   log("Resulllltttttt\n\n\n");
-  //   setState(() {
-  //     searchText = result.recognizedWords;
-  //   });
-  //   //Navigate to chat screen
-  //   // Provider.of<ChatProvider>(context, listen: false)
-  //   //     .sendChatMessage(context, searchText)
-  //   //     .then((value) => Navigator.pushNamed(context, '/chatscreen'));
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -113,14 +65,9 @@ class _VoiceSearchChatScreenState extends State<VoiceSearchChatScreen> {
               if (!_isListening) {
                 Provider.of<ChatProvider>(context, listen: false)
                     .sendChatMessage(context, _text);
+                await Future.delayed(const Duration(milliseconds: 500));
                 await Navigator.pushNamed(context, '/chatscreen');
-                // .then(
-                //     (value) => Navigator.pushNamed(context, '/chatscreen'));
               }
-
-              // _speechToText.isNotListening
-              //     ? _startListening()
-              //     : _stopListening();
             },
             child: _isListening
                 ? AvatarGlow(
@@ -150,16 +97,20 @@ class _VoiceSearchChatScreenState extends State<VoiceSearchChatScreen> {
               image: DecorationImage(
                   image: AssetImage("assets/images/bg.png"),
                   fit: BoxFit.cover)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(
-                child: Text(
-                  _text, // "How can i help you?",
-                  style: Theme.of(context).textTheme.headlineMedium,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(8.0, 100, 8, 0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                FrostedGlassBox(
+                  height: screenSize.height * 0.5,
+                  child: Text(
+                    _text.toUpperCase(),
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ));
   }

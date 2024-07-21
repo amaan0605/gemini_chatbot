@@ -41,7 +41,7 @@ class _ImageSearchChatScreenState extends State<ImageSearchChatScreen> {
     final base64Image = base64Encode(bytes);
 
     final url = Uri.parse(
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent?key=$apiKey");
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$apiKey");
     http.Response response = await http.post(url,
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
