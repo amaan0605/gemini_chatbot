@@ -37,7 +37,7 @@ class _ChatScreenState extends State<ChatScreen> {
         duration: const Duration(
           milliseconds: 750,
         ),
-        curve: Curves.easeOutCirc,
+        curve: Curves.easeIn,
       ),
     );
   }
