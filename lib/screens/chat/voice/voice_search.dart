@@ -106,6 +106,7 @@ class _VoiceSearchChatScreenState extends State<VoiceSearchChatScreen> {
                   height: screenSize.height * 0.5,
                   child: Text(
                     _text.toUpperCase(),
+                    textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
                 ),
