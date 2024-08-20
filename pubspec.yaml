@@ -41,20 +41,20 @@ dependencies:
   flutter_chat_types: ^3.6.2
   image_picker: ^1.0.7
   speech_to_text: ^6.5.1
-  lottie: ^2.7.0
+  lottie: ^3.1.2
   flutter_svg: ^2.0.9
-  flutter_markdown: ^0.6.19
-  google_generative_ai: ^0.2.0
+  flutter_markdown: ^0.7.3+1
+  google_generative_ai: ^0.4.4
   avatar_glow: ^3.0.1
   custom_navigation_bar: ^0.8.2
-  firebase_core: ^2.24.2
-  firebase_auth: ^4.16.0
+  firebase_core: ^3.3.0
+  firebase_auth: ^5.1.4
   page_transition: ^2.1.0
   shared_preferences: ^2.2.2
   url_launcher: ^6.2.5
   google_mobile_ads: ^5.0.0
-  cloud_firestore: ^4.16.1
-  share_plus: ^9.0.0
+  cloud_firestore: ^5.2.1
+  share_plus: ^10.0.0
 
 dev_dependencies:
   flutter_test:
@@ -65,7 +65,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^4.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
